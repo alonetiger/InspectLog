@@ -1,0 +1,1431 @@
+{
+  "app_name": "HardwareVerify — Hardware Verification Tool",
+  "app_version": "1.0.0",
+  "audit_timestamp": "2026-11-02T23:19:36.328352",
+  "target_system": {
+    "serial_number": "CND7239KG1",
+    "manufacturer": "HP",
+    "model": "HP Notebook",
+    "os_build": "Microsoft Windows 11 Pro (Build 22621)"
+  },
+  "scoring": {
+    "overall_score": 92,
+    "verdict": "MODERATE",
+    "verdict_title": "BUY CONFIDENCE: MODERATE (WEAR OR ISSUES OBSERVED)",
+    "verdict_explanation": "The system is operational, but one or more components exhibit noticeable wear, age degradation, or minor defects. Review the inspection notes below and use them to negotiate the purchase price.",
+    "red_flags": [
+      "Battery has moderate degradation (37.0% wear). Runtime on battery power will be noticeably shortened."
+    ],
+    "recommendations": [
+      "Negotiate a modest discount ($30–$50) to offset future battery replacement.",
+      "Secure Boot is currently disabled in BIOS. Enable Secure Boot to protect against bootkit malware.",
+      "TPM security chip was not detected. Windows 11 features and BitLocker hardware encryption may be restricted."
+    ],
+    "module_scores": {
+      "battery": 67,
+      "cpu": 100,
+      "ram": 100,
+      "display": 100,
+      "system_identity": 100,
+      "input_io": 100,
+      "thermals": 100,
+      "security": 85
+    }
+  },
+  "seller_claims_verification": {
+    "has_claims": true,
+    "all_matched": false,
+    "matches_count": 1,
+    "mismatches_count": 3,
+    "items": [
+      {
+        "component": "Processor (CPU)",
+        "claimed": "Intel Core i3-6006U",
+        "actual": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+        "is_match": true,
+        "details": "CPU model matches seller's advertised specification."
+      },
+      {
+        "component": "Memory (RAM)",
+        "claimed": "16 GB",
+        "actual": "8 GB",
+        "is_match": false,
+        "details": "Shortfall! Advertised 16 GB, but only 8 GB is installed (8 GB missing)."
+      },
+      {
+        "component": "Storage",
+        "claimed": "1200 GB SSD",
+        "actual": "0 GB (Storage)",
+        "is_match": false,
+        "details": "Capacity mismatch! Advertised 1200 GB, but found 0 GB (1200 GB shortfall)."
+      },
+      {
+        "component": "Battery Health",
+        "claimed": "85% Health",
+        "actual": "63% Health",
+        "is_match": false,
+        "details": "Battery health is 63%, which is 22% lower than claimed (85%)."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "module_name": "system_identity",
+      "display_name": "System Identity",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 2.883,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "manufacturer": {
+          "value": "HP",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_ComputerSystem.Manufacturer",
+              "raw_value": "HP",
+              "timestamp": "2026-11-02T23:19:16.931736"
+            }
+          ]
+        },
+        "model": {
+          "value": "HP Notebook",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_ComputerSystem.Model",
+              "raw_value": "HP Notebook",
+              "timestamp": "2026-11-02T23:19:16.931736"
+            }
+          ]
+        },
+        "serial_number": {
+          "value": "CND7239KG1",
+          "confidence": "Low",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BIOS.SerialNumber",
+              "raw_value": "CND7239KG1",
+              "timestamp": "2026-11-02T23:19:17.034002"
+            },
+            {
+              "name": "WMI:Win32_SystemEnclosure.SerialNumber",
+              "raw_value": "Chassis Serial Number",
+              "timestamp": "2026-11-02T23:19:17.034002"
+            }
+          ]
+        },
+        "bios_version": {
+          "value": "F.25",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BIOS.SMBIOSBIOSVersion",
+              "raw_value": "F.25",
+              "timestamp": "2026-11-02T23:19:17.034002"
+            }
+          ]
+        },
+        "bios_date": {
+          "value": "2017-04-07",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BIOS.ReleaseDate",
+              "raw_value": "20170407000000.000000+000",
+              "timestamp": "2026-11-02T23:19:17.043298"
+            }
+          ]
+        },
+        "motherboard": {
+          "value": "HP 81EB",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BaseBoard",
+              "raw_value": "{'Manufacturer': 'HP', 'Product': '81EB', 'SerialNumber': 'PGGFDG21T81AJS'}",
+              "timestamp": "2026-11-02T23:19:17.093758"
+            }
+          ]
+        },
+        "os_build": {
+          "value": "Microsoft Windows 11 Pro (Build 22621)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_OperatingSystem",
+              "raw_value": "{'Caption': 'Microsoft Windows 11 Pro', 'Version': '10.0.22621', 'BuildNumber': '22621'}",
+              "timestamp": "2026-11-02T23:19:17.224272"
+            },
+            {
+              "name": "platform.version()",
+              "raw_value": "10.0.22621",
+              "timestamp": "2026-11-02T23:19:17.224272"
+            }
+          ]
+        },
+        "windows_activation": {
+          "value": "Activated (Licensed)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:SoftwareLicensingProduct",
+              "raw_value": "[{'Name': 'Windows(R), Professional edition', 'LicenseStatus': 1, 'PartialProductKey': '3V66T'}]",
+              "timestamp": "2026-11-02T23:19:19.723130"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "battery",
+      "display_name": "Battery",
+      "status": "Warning",
+      "health_score": 67,
+      "is_applicable": true,
+      "test_duration_seconds": 0.374,
+      "warnings": [
+        "Battery wear is 37.0%. Noticeable runtime reduction."
+      ],
+      "errors": [],
+      "readings": {
+        "battery_present": {
+          "value": true,
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "psutil.sensors_battery()",
+              "raw_value": "True",
+              "timestamp": "2026-11-02T23:19:20.097046"
+            },
+            {
+              "name": "WMI:BatteryStaticData",
+              "raw_value": "True",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "design_capacity": {
+          "value": 32120,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:BatteryStaticData.DesignedCapacity",
+              "raw_value": "32120",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            },
+            {
+              "name": "powercfg /batteryreport:DesignCapacity",
+              "raw_value": null,
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "full_charge_capacity": {
+          "value": 20250,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:BatteryFullChargedCapacity.FullChargedCapacity",
+              "raw_value": "20250",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            },
+            {
+              "name": "powercfg /batteryreport:FullChargeCapacity",
+              "raw_value": null,
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "wear_percentage": {
+          "value": 37.0,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Calculated: (1 - Full/Design)*100",
+              "raw_value": "37.0%",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "battery_health": {
+          "value": "Fair (37.0% wear - noticeable degradation)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Wear Evaluation Thresholds",
+              "raw_value": "Fair (37.0% wear - noticeable degradation)",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "cycle_count": {
+          "value": 0,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "BatteryCycleCount / powercfg",
+              "raw_value": "0",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "chemistry": {
+          "value": null,
+          "confidence": "Low",
+          "is_available": false,
+          "unavailable_reason": "Battery chemistry not reported",
+          "sources": []
+        },
+        "voltage": {
+          "value": "16410 mV (16.41 V)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:BatteryStatus.Voltage",
+              "raw_value": "16410",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "discharge_rate": {
+          "value": "0 mW (Not discharging / on AC)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:BatteryStatus.DischargeRate",
+              "raw_value": "0 mW (Not discharging / on AC)",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "charge_rate": {
+          "value": "0 mW (Not charging)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:BatteryStatus.ChargeRate",
+              "raw_value": "0 mW (Not charging)",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "current_percent": {
+          "value": "100%",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "psutil.sensors_battery().percent",
+              "raw_value": "100",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        },
+        "power_plugged": {
+          "value": "Plugged into AC",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "psutil.sensors_battery().power_plugged",
+              "raw_value": "True",
+              "timestamp": "2026-11-02T23:19:20.098043"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "storage_0",
+      "display_name": "Storage: WDC WDS240G2G0A-00JH30",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 0.0,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "disk_model": {
+          "value": "WDC WDS240G2G0A-00JH30",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl",
+              "raw_value": "WDC WDS240G2G0A-00JH30",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.Model",
+              "raw_value": "WDC WDS240G2G0A-00JH30",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_serial": {
+          "value": "21298P443702",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl",
+              "raw_value": "21298P443702",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.SerialNumber",
+              "raw_value": "21298P443702",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_capacity": {
+          "value": "240.1 GB",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:user_capacity.bytes",
+              "raw_value": null,
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.Size",
+              "raw_value": "240063022080",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_firmware": {
+          "value": "UF510000",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl",
+              "raw_value": "UF510000",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_interface": {
+          "value": "IDE",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_DiskDrive.InterfaceType",
+              "raw_value": "IDE",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "smart_health": {
+          "value": "Passed",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:smart_status.passed",
+              "raw_value": "Passed",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.Status",
+              "raw_value": "Passed",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "power_on_hours": {
+          "value": "3241 hours (135.0 days)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl.power_on_time",
+              "raw_value": "3241 hours (135.0 days)",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "power_cycles": {
+          "value": 2046,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl.power_cycle_count",
+              "raw_value": "2046",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "reallocated_sectors": {
+          "value": 0,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:Reallocated_Sector_Ct",
+              "raw_value": "0",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "total_data_written": {
+          "value": "10.8 TB",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:HostWrites",
+              "raw_value": "10.8 TB",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_temperature": {
+          "value": "36 °C",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl.temperature",
+              "raw_value": "36 °C",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "storage_1",
+      "display_name": "Storage: TOSHIBA MQ01ABD100",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 0.0,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "disk_model": {
+          "value": "TOSHIBA MQ01ABD100",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl",
+              "raw_value": "TOSHIBA MQ01ABD100",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.Model",
+              "raw_value": "TOSHIBA MQ01ABD100",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_serial": {
+          "value": "57H5SD14S",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl",
+              "raw_value": "57H5SD14S",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.SerialNumber",
+              "raw_value": "57H5SD14S",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_capacity": {
+          "value": "1.0 TB (1000.2 GB)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:user_capacity.bytes",
+              "raw_value": null,
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.Size",
+              "raw_value": "1000202273280",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_firmware": {
+          "value": "AX1R4C",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl",
+              "raw_value": "AX1R4C",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_interface": {
+          "value": "IDE",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_DiskDrive.InterfaceType",
+              "raw_value": "IDE",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "smart_health": {
+          "value": "Passed",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:smart_status.passed",
+              "raw_value": "Passed",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            },
+            {
+              "name": "WMI:Win32_DiskDrive.Status",
+              "raw_value": "Passed",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "power_on_hours": {
+          "value": "15979 hours (665.8 days)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl.power_on_time",
+              "raw_value": "15979 hours (665.8 days)",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "power_cycles": {
+          "value": 5974,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl.power_cycle_count",
+              "raw_value": "5974",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "reallocated_sectors": {
+          "value": 0,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:Reallocated_Sector_Ct",
+              "raw_value": "0",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "pending_sectors": {
+          "value": 0,
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl:Current_Pending_Sector",
+              "raw_value": "0",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        },
+        "disk_temperature": {
+          "value": "33 °C",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "smartctl.temperature",
+              "raw_value": "33 °C",
+              "timestamp": "2026-11-02T23:19:21.477075"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "ram",
+      "display_name": "Memory (RAM)",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 0.16,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "total_ram": {
+          "value": "8 GB",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "psutil.virtual_memory().total",
+              "raw_value": "8475553792",
+              "timestamp": "2026-11-02T23:19:21.637023"
+            },
+            {
+              "name": "WMI:Win32_PhysicalMemory (Sum)",
+              "raw_value": "8589934592",
+              "timestamp": "2026-11-02T23:19:21.637023"
+            }
+          ]
+        },
+        "ram_slots": {
+          "value": "2 of 2 slots populated",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_PhysicalMemory",
+              "raw_value": "{'populated': 2, 'total_slots': 2}",
+              "timestamp": "2026-11-02T23:19:21.637023"
+            }
+          ]
+        },
+        "dual_channel": {
+          "value": "Dual-Channel Active (2 modules detected)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "DIMM Topology & Slot Count",
+              "raw_value": "{'populated': 2, 'slots': 2}",
+              "timestamp": "2026-11-02T23:19:21.637023"
+            }
+          ]
+        },
+        "ram_speed": {
+          "value": "2133 MHz (DDR4)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_PhysicalMemory.ConfiguredClockSpeed",
+              "raw_value": "{'running': 2133, 'rated': 2133}",
+              "timestamp": "2026-11-02T23:19:21.637023"
+            }
+          ]
+        },
+        "dimm_slot_1": {
+          "value": "4GB DDR4-2133MHz (SK Hynix HMA451S6AFR8N-TF) [Bottom-slot 1(top)]",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_PhysicalMemory[0]",
+              "raw_value": "{'capacity_bytes': 4294967296, 'speed': 2133, 'configured_speed': 2133, 'manufacturer': 'SK Hynix', 'part_number': 'HMA451S6AFR8N-TF', 'locator': 'Bottom-slot 1(top)', 'bank': 'BANK 0', 'type': 'DDR4', 'form_factor': 'SODIMM (Laptop)'}",
+              "timestamp": "2026-11-02T23:19:21.637023"
+            }
+          ]
+        },
+        "dimm_slot_2": {
+          "value": "4GB DDR4-2133MHz (1315 CB4GS2400.M8E) [Bottom-slot 2(under)]",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_PhysicalMemory[1]",
+              "raw_value": "{'capacity_bytes': 4294967296, 'speed': 2133, 'configured_speed': 2133, 'manufacturer': '1315', 'part_number': 'CB4GS2400.M8E', 'locator': 'Bottom-slot 2(under)', 'bank': 'BANK 2', 'type': 'DDR4', 'form_factor': 'SODIMM (Laptop)'}",
+              "timestamp": "2026-11-02T23:19:21.637023"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "cpu",
+      "display_name": "Processor (CPU)",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 3.542,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "cpu_model": {
+          "value": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "py-cpuinfo",
+              "raw_value": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            },
+            {
+              "name": "WMI:Win32_Processor.Name",
+              "raw_value": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            }
+          ]
+        },
+        "cpu_cores": {
+          "value": 2,
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "psutil.cpu_count(logical=False)",
+              "raw_value": "2",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            },
+            {
+              "name": "WMI:Win32_Processor.NumberOfCores",
+              "raw_value": "2",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            }
+          ]
+        },
+        "cpu_threads": {
+          "value": 4,
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "psutil.cpu_count(logical=True)",
+              "raw_value": "4",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            },
+            {
+              "name": "WMI:Win32_Processor.NumberOfLogicalProcessors",
+              "raw_value": "4",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            }
+          ]
+        },
+        "cpu_boost_clock": {
+          "value": "2000 MHz (2.0 GHz)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI/psutil:MaxClock",
+              "raw_value": "2000 MHz (2.0 GHz)",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            }
+          ]
+        },
+        "cpu_cache": {
+          "value": "L2: 0.5 MB | L3: 3.0 MB",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "py-cpuinfo / WMI CacheSize",
+              "raw_value": "L2: 0.5 MB | L3: 3.0 MB",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            }
+          ]
+        },
+        "cpu_virtualization": {
+          "value": "Supported but Disabled in BIOS",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "py-cpuinfo.flags",
+              "raw_value": "vmx/svm found",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            },
+            {
+              "name": "WMI:VirtualizationFirmwareEnabled",
+              "raw_value": "False",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            }
+          ]
+        },
+        "cpu_spoof_check": {
+          "value": "Passed (Authentic hardware specs)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Spoof Database Check",
+              "raw_value": "Hardware cores (2) and threads (4) match specifications for Core i3 Dual-Core.",
+              "timestamp": "2026-11-02T23:19:25.179900"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "gpu_0",
+      "display_name": "Graphics: Intel(R) HD Graphics 520",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 0.0,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "gpu_model": {
+          "value": "Intel(R) HD Graphics 520",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_VideoController.Name",
+              "raw_value": "Intel(R) HD Graphics 520",
+              "timestamp": "2026-11-02T23:19:25.276599"
+            },
+            {
+              "name": "NVIDIA NVML",
+              "raw_value": null,
+              "timestamp": "2026-11-02T23:19:25.276599"
+            }
+          ]
+        },
+        "gpu_type": {
+          "value": "Integrated Graphics (Shared Memory)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Device ID / Model Heuristic",
+              "raw_value": "Integrated Graphics (Shared Memory)",
+              "timestamp": "2026-11-02T23:19:25.276599"
+            }
+          ]
+        },
+        "gpu_vram": {
+          "value": "1 GB VRAM",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_VideoController.AdapterRAM",
+              "raw_value": "1.0 GB",
+              "timestamp": "2026-11-02T23:19:25.276599"
+            }
+          ]
+        },
+        "gpu_driver": {
+          "value": "31.0.101.2111",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:DriverVersion",
+              "raw_value": "31.0.101.2111",
+              "timestamp": "2026-11-02T23:19:25.276599"
+            },
+            {
+              "name": "NVIDIA NVML",
+              "raw_value": null,
+              "timestamp": "2026-11-02T23:19:25.276599"
+            }
+          ]
+        },
+        "gpu_temperature": {
+          "value": null,
+          "confidence": "Low",
+          "is_available": false,
+          "unavailable_reason": "GPU thermal sensor unavailable or integrated graphics",
+          "sources": []
+        }
+      }
+    },
+    {
+      "module_name": "display",
+      "display_name": "Display: Chi Mei Innolux 15C6",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 0.46,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "display_model": {
+          "value": "Chi Mei Innolux (CMN 15C6)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:WmiMonitorID",
+              "raw_value": "CMN 15C6",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        },
+        "panel_size": {
+          "value": "15.3\" (34 x 19 cm)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:WmiMonitorBasicDisplayParams",
+              "raw_value": "34cm x 19cm",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        },
+        "resolution": {
+          "value": "1366 x 768",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Win32:EnumDisplaySettings",
+              "raw_value": "1366 x 768",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            },
+            {
+              "name": "WMI:Win32_VideoController",
+              "raw_value": "1366 x 768",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        },
+        "refresh_rate": {
+          "value": "60 Hz",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Win32:EnumDisplaySettings",
+              "raw_value": "60 Hz",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            },
+            {
+              "name": "WMI:Win32_VideoController",
+              "raw_value": "60 Hz",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        },
+        "color_depth": {
+          "value": "32-bit Color",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Win32:EnumDisplaySettings",
+              "raw_value": "32 bpp",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        },
+        "connection_type": {
+          "value": "Internal Display (eDP / Laptop Panel)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:WmiMonitorConnectionParams",
+              "raw_value": "VideoOutputTechnology=-2147483648",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        },
+        "manufacture_date": {
+          "value": "Week 36, 2015",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:WmiMonitorID",
+              "raw_value": "Year=2015, Week=36",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        },
+        "pixel_defect_test": {
+          "value": "Not Tested (Click 'Run Test' below)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "DisplayTestSequence",
+              "raw_value": "Not executed yet",
+              "timestamp": "2026-11-02T23:19:25.736788"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "thermals",
+      "display_name": "Thermals & Fans",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 0.069,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "cpu_temperature": {
+          "value": null,
+          "confidence": "Low",
+          "is_available": false,
+          "unavailable_reason": "ACPI thermal zone temperature not exposed by motherboard ACPI table",
+          "sources": []
+        },
+        "fan_speed": {
+          "value": null,
+          "confidence": "Low",
+          "is_available": false,
+          "unavailable_reason": "Fan RPM sensor requires kernel driver (e.g. LibreHardwareMonitor)",
+          "sources": []
+        },
+        "cpu_voltage": {
+          "value": null,
+          "confidence": "Low",
+          "is_available": false,
+          "unavailable_reason": "Voltage telemetry requires kernel sensor driver",
+          "sources": []
+        }
+      }
+    },
+    {
+      "module_name": "security",
+      "display_name": "Security & Locks",
+      "status": "Warning",
+      "health_score": 85,
+      "is_applicable": true,
+      "test_duration_seconds": 5.098,
+      "warnings": [
+        "Secure Boot is Disabled. Recommended to enable in UEFI firmware.",
+        "No active TPM chip detected. Windows 11 features and BitLocker may be unsupported."
+      ],
+      "errors": [],
+      "readings": {
+        "secure_boot": {
+          "value": "Disabled",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Registry:UEFISecureBootEnabled",
+              "raw_value": "False",
+              "timestamp": "2026-11-02T23:19:25.806638"
+            }
+          ]
+        },
+        "tpm_present": {
+          "value": "Not Detected / Missing",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:MicrosoftTpm",
+              "raw_value": "Not Detected / Missing",
+              "timestamp": "2026-11-02T23:19:30.822923"
+            }
+          ]
+        },
+        "mdm_enrolled": {
+          "value": "None (Clean Consumer Device)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "Registry:Enrollments",
+              "raw_value": "None (Clean Consumer Device)",
+              "timestamp": "2026-11-02T23:19:30.824938"
+            }
+          ]
+        },
+        "domain_joined": {
+          "value": "Workgroup (WORKGROUP)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_ComputerSystem.PartOfDomain",
+              "raw_value": "Workgroup (WORKGROUP)",
+              "timestamp": "2026-11-02T23:19:30.904371"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "module_name": "input_io",
+      "display_name": "Input & Peripherals",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 5.247,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "wifi_adapter": {
+          "value": "Realtek RTL8723BE 802.11 bgn Wi-Fi Adapter [Connected to: IráZ¥gê,.á?']",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "netsh:wlan",
+              "raw_value": "Realtek RTL8723BE 802.11 bgn Wi-Fi Adapter (connected)",
+              "timestamp": "2026-11-02T23:19:32.615537"
+            },
+            {
+              "name": "WMI:Win32_NetworkAdapter",
+              "raw_value": "Realtek RTL8723BE 802.11 bgn Wi-Fi Adapter",
+              "timestamp": "2026-11-02T23:19:32.615537"
+            }
+          ]
+        },
+        "nearby_wifi_networks": {
+          "value": "1 network(s) visible",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "netsh:networks",
+              "raw_value": "1",
+              "timestamp": "2026-11-02T23:19:32.729126"
+            }
+          ]
+        },
+        "bluetooth_adapter": {
+          "value": "realme Buds Wireless 3 Avrcp Transport",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_PnPEntity",
+              "raw_value": "realme Buds Wireless 3 Avrcp Transport",
+              "timestamp": "2026-11-02T23:19:34.075846"
+            }
+          ]
+        },
+        "biometric_sensor": {
+          "value": "Not Present (No Fingerprint Sensor)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_PnPEntity",
+              "raw_value": "0 devices found",
+              "timestamp": "2026-11-02T23:19:34.661729"
+            }
+          ]
+        },
+        "audio_controller": {
+          "value": "Intel(R) Display Audio, Realtek High Definition Audio",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_SoundDevice",
+              "raw_value": "['Intel(R) Display Audio', 'Realtek High Definition Audio']",
+              "timestamp": "2026-11-02T23:19:35.029097"
+            }
+          ]
+        },
+        "audio_inputs": {
+          "value": "3 detected: Headset (realme Buds Wireless 3), Microphone (Realtek High Definition Audio)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "QtMultimedia:audioInputs",
+              "raw_value": "['Headset (realme Buds Wireless 3)', 'Microphone (Realtek High Definition Audio)', 'Stereo Mix (Realtek High Definition Audio)']",
+              "timestamp": "2026-11-02T23:19:35.029097"
+            }
+          ]
+        },
+        "audio_outputs": {
+          "value": "2 detected: Headphones (realme Buds Wireless 3), Speaker/Headphone (Realtek High Definition Audio)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "QtMultimedia:audioOutputs",
+              "raw_value": "['Headphones (realme Buds Wireless 3)', 'Speaker/Headphone (Realtek High Definition Audio)']",
+              "timestamp": "2026-11-02T23:19:35.029097"
+            }
+          ]
+        },
+        "webcam": {
+          "value": "HP TrueVision HD",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "QtMultimedia:videoInputs",
+              "raw_value": "['HP TrueVision HD']",
+              "timestamp": "2026-11-02T23:19:35.839240"
+            },
+            {
+              "name": "WMI:Win32_PnPEntity",
+              "raw_value": "['HP TrueVision HD']",
+              "timestamp": "2026-11-02T23:19:35.839240"
+            }
+          ]
+        },
+        "keyboard_hardware": {
+          "value": "3 controller(s): Standard PS/2 Keyboard, HID Keyboard Device, USB Input Device",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_Keyboard",
+              "raw_value": "['Standard PS/2 Keyboard', 'HID Keyboard Device', 'USB Input Device']",
+              "timestamp": "2026-11-02T23:19:35.980411"
+            }
+          ]
+        },
+        "pointing_hardware": {
+          "value": "2 device(s): Microsoft PS/2 Mouse, USB Input Device",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_PointingDevice",
+              "raw_value": "['Microsoft PS/2 Mouse', 'USB Input Device']",
+              "timestamp": "2026-11-02T23:19:36.100911"
+            }
+          ]
+        },
+        "usb_controllers": {
+          "value": "Intel(R) USB 3.0 eXtensible Host Controller - 1.0 (Microsoft)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_USBController",
+              "raw_value": "['Intel(R) USB 3.0 eXtensible Host Controller - 1.0 (Microsoft)']",
+              "timestamp": "2026-11-02T23:19:36.150983"
+            }
+          ]
+        },
+        "interactive_tests": {
+          "value": "Not Tested (Run Interactive Diagnostics)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "DiagnosticSuite",
+              "raw_value": "Pending user execution",
+              "timestamp": "2026-11-02T23:19:36.150983"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

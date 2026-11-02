@@ -1,0 +1,18 @@
+{
+  "Win32_Tpm": [
+    {
+      "IsActivated_InitialValue": true,
+      "IsEnabled_InitialValue": true,
+      "IsOwned_InitialValue": true,
+      "SpecVersion": "2.0, 0, 1.38",
+      "ManufacturerId": 1229346816,
+      "ManufacturerVersion": "7.85"
+    }
+  ],
+  "Win32_ComputerSystem": [
+    {
+      "PartOfDomain": false,
+      "Workgroup": "WORKGROUP"
+    }
+  ]
+}

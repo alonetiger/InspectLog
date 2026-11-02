@@ -1,0 +1,172 @@
+{
+  "app_name": "HardwareVerify — Hardware Verification Tool",
+  "app_version": "1.0.0",
+  "audit_timestamp": "2026-11-02T23:14:01.705596",
+  "target_system": {
+    "serial_number": "CND7239KG1",
+    "manufacturer": "HP",
+    "model": "HP Notebook",
+    "os_build": "Microsoft Windows 11 Pro (Build 22621)"
+  },
+  "scoring": {
+    "overall_score": 100,
+    "verdict": "HIGH",
+    "verdict_title": "BUY CONFIDENCE: HIGH (HARDWARE AUTHENTIC & HEALTHY)",
+    "verdict_explanation": "All scanned components are verified authentic, healthy, and operating within manufacturer specifications. No critical defects or fraudulent hardware modifications were detected.",
+    "red_flags": [],
+    "recommendations": [],
+    "module_scores": {
+      "system_identity": 100
+    }
+  },
+  "seller_claims_verification": {
+    "has_claims": true,
+    "all_matched": false,
+    "matches_count": 0,
+    "mismatches_count": 2,
+    "items": [
+      {
+        "component": "Processor (CPU)",
+        "claimed": "Core i3",
+        "actual": "Not Detected",
+        "is_match": false,
+        "details": "Mismatch! Advertised 'Core i3', but detected 'Not Detected'."
+      },
+      {
+        "component": "Memory (RAM)",
+        "claimed": "8 GB",
+        "actual": "0 GB",
+        "is_match": false,
+        "details": "Shortfall! Advertised 8 GB, but only 0 GB is installed (8 GB missing)."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "module_name": "system_identity",
+      "display_name": "System Identity",
+      "status": "Pass",
+      "health_score": 100,
+      "is_applicable": true,
+      "test_duration_seconds": 1.613,
+      "warnings": [],
+      "errors": [],
+      "readings": {
+        "manufacturer": {
+          "value": "HP",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_ComputerSystem.Manufacturer",
+              "raw_value": "HP",
+              "timestamp": "2026-11-02T23:14:00.174751"
+            }
+          ]
+        },
+        "model": {
+          "value": "HP Notebook",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_ComputerSystem.Model",
+              "raw_value": "HP Notebook",
+              "timestamp": "2026-11-02T23:14:00.174751"
+            }
+          ]
+        },
+        "serial_number": {
+          "value": "CND7239KG1",
+          "confidence": "Low",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BIOS.SerialNumber",
+              "raw_value": "CND7239KG1",
+              "timestamp": "2026-11-02T23:14:00.267673"
+            },
+            {
+              "name": "WMI:Win32_SystemEnclosure.SerialNumber",
+              "raw_value": "Chassis Serial Number",
+              "timestamp": "2026-11-02T23:14:00.267673"
+            }
+          ]
+        },
+        "bios_version": {
+          "value": "F.25",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BIOS.SMBIOSBIOSVersion",
+              "raw_value": "F.25",
+              "timestamp": "2026-11-02T23:14:00.267673"
+            }
+          ]
+        },
+        "bios_date": {
+          "value": "2017-04-07",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BIOS.ReleaseDate",
+              "raw_value": "20170407000000.000000+000",
+              "timestamp": "2026-11-02T23:14:00.276093"
+            }
+          ]
+        },
+        "motherboard": {
+          "value": "HP 81EB",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_BaseBoard",
+              "raw_value": "{'Manufacturer': 'HP', 'Product': '81EB', 'SerialNumber': 'PGGFDG21T81AJS'}",
+              "timestamp": "2026-11-02T23:14:00.322327"
+            }
+          ]
+        },
+        "os_build": {
+          "value": "Microsoft Windows 11 Pro (Build 22621)",
+          "confidence": "High",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:Win32_OperatingSystem",
+              "raw_value": "{'Caption': 'Microsoft Windows 11 Pro', 'Version': '10.0.22621', 'BuildNumber': '22621'}",
+              "timestamp": "2026-11-02T23:14:00.434653"
+            },
+            {
+              "name": "platform.version()",
+              "raw_value": "10.0.22621",
+              "timestamp": "2026-11-02T23:14:00.434653"
+            }
+          ]
+        },
+        "windows_activation": {
+          "value": "Activated (Licensed)",
+          "confidence": "Medium",
+          "is_available": true,
+          "unavailable_reason": null,
+          "sources": [
+            {
+              "name": "WMI:SoftwareLicensingProduct",
+              "raw_value": "[{'Name': 'Windows(R), Professional edition', 'LicenseStatus': 1, 'PartialProductKey': '3V66T'}]",
+              "timestamp": "2026-11-02T23:14:01.704598"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

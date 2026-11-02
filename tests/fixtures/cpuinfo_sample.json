@@ -1,0 +1,15 @@
+{
+  "brand_raw": "13th Gen Intel(R) Core(TM) i7-13700H",
+  "arch": "X86_64",
+  "bits": 64,
+  "count": 20,
+  "hz_actual_friendly": "2.4000 GHz",
+  "hz_advertised_friendly": "5.0000 GHz",
+  "hz_actual": [2400000000, 0],
+  "hz_advertised": [5000000000, 0],
+  "l1_data_cache_size": 49152,
+  "l1_instruction_cache_size": 32768,
+  "l2_cache_size": 11534336,
+  "l3_cache_size": 25165824,
+  "flags": ["vmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", "avx", "avx2", "aes"]
+}

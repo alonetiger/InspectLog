@@ -1,0 +1,15 @@
+{
+  "Win32_Processor": [
+    {
+      "Name": "13th Gen Intel(R) Core(TM) i7-13700H",
+      "NumberOfCores": 14,
+      "NumberOfLogicalProcessors": 20,
+      "MaxClockSpeed": 5000,
+      "L2CacheSize": 11520,
+      "L3CacheSize": 24576,
+      "VirtualizationFirmwareEnabled": true,
+      "ProcessorId": "BFEBFBFF000B06A2",
+      "Manufacturer": "GenuineIntel"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "Win32_VideoController": [
+    {
+      "Name": "Intel(R) Iris(R) Xe Graphics",
+      "AdapterRAM": 1073741824,
+      "DriverVersion": "31.0.101.4575",
+      "DriverDate": "20230711000000.000000-000",
+      "VideoProcessor": "Intel(R) Iris(R) Xe Graphics Family",
+      "PNPDeviceID": "PCI\\VEN_8086&DEV_A7A0&SUBSYS_00000000",
+      "CurrentHorizontalResolution": 1920,
+      "CurrentVerticalResolution": 1080,
+      "CurrentRefreshRate": 60
+    },
+    {
+      "Name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "AdapterRAM": 4294967296,
+      "DriverVersion": "31.0.15.3667",
+      "DriverDate": "20230718000000.000000-000",
+      "VideoProcessor": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "PNPDeviceID": "PCI\\VEN_10DE&DEV_28E0&SUBSYS_00000000",
+      "CurrentHorizontalResolution": null,
+      "CurrentVerticalResolution": null,
+      "CurrentRefreshRate": null
+    }
+  ]
+}

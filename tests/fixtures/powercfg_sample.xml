@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BatteryReport>
+  <ReportInformation>
+    <ReportGuid>{3A17B4C8-581F-4B85-8CA8-482276527581}</ReportGuid>
+    <ReportVersion>1</ReportVersion>
+    <ScanTimestamp>2026-11-02T10:30:00Z</ScanTimestamp>
+  </ReportInformation>
+  <SystemInformation>
+    <SystemManufacturer>Dell Inc.</SystemManufacturer>
+    <SystemProductName>Latitude 5540</SystemProductName>
+    <BiosDate>10/15/2023</BiosDate>
+    <BiosVersion>1.8.0</BiosVersion>
+    <OSBuild>22631.1.amd64fre.ni_release.22621-0001</OSBuild>
+  </SystemInformation>
+  <Batteries>
+    <Battery>
+      <Id>12894SimploDELL</Id>
+      <Manufacturer>Simplo</Manufacturer>
+      <SerialNumber>12894</SerialNumber>
+      <Chemistry>LION</Chemistry>
+      <DesignCapacity>54000</DesignCapacity>
+      <FullChargeCapacity>48600</FullChargeCapacity>
+      <CycleCount>42</CycleCount>
+    </Battery>
+  </Batteries>
+</BatteryReport>

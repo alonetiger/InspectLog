@@ -1,0 +1,85 @@
+{
+  "json_format_version": [1, 0],
+  "smartctl": {
+    "version": [7, 5],
+    "argv": ["smartctl", "-a", "/dev/sda", "--json"],
+    "exit_status": 0
+  },
+  "device": {
+    "name": "/dev/sda",
+    "info_name": "/dev/sda",
+    "type": "ata",
+    "protocol": "ATA"
+  },
+  "model_name": "Samsung SSD 870 EVO 1TB",
+  "serial_number": "S6PENF0W123456K",
+  "firmware_version": "SVT02B6Q",
+  "user_capacity": {
+    "blocks": 1953525168,
+    "bytes": 1000204886016
+  },
+  "smart_status": {
+    "passed": true
+  },
+  "power_on_time": {
+    "hours": 1250
+  },
+  "power_cycle_count": 312,
+  "temperature": {
+    "current": 32
+  },
+  "ata_smart_attributes": {
+    "revision": 1,
+    "table": [
+      {
+        "id": 5,
+        "name": "Reallocated_Sector_Ct",
+        "value": 100,
+        "worst": 100,
+        "raw": {"value": 0, "string": "0"}
+      },
+      {
+        "id": 9,
+        "name": "Power_On_Hours",
+        "value": 99,
+        "worst": 99,
+        "raw": {"value": 1250, "string": "1250"}
+      },
+      {
+        "id": 12,
+        "name": "Power_Cycle_Count",
+        "value": 99,
+        "worst": 99,
+        "raw": {"value": 312, "string": "312"}
+      },
+      {
+        "id": 177,
+        "name": "Wear_Leveling_Count",
+        "value": 98,
+        "worst": 98,
+        "raw": {"value": 24, "string": "24"}
+      },
+      {
+        "id": 197,
+        "name": "Current_Pending_Sector",
+        "value": 100,
+        "worst": 100,
+        "raw": {"value": 0, "string": "0"}
+      },
+      {
+        "id": 199,
+        "name": "UDMA_CRC_Error_Count",
+        "value": 100,
+        "worst": 100,
+        "raw": {"value": 0, "string": "0"}
+      },
+      {
+        "id": 241,
+        "name": "Total_LBAs_Written",
+        "value": 99,
+        "worst": 99,
+        "raw": {"value": 14500, "string": "14500"}
+      }
+    ]
+  }
+}

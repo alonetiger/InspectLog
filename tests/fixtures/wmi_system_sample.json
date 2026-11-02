@@ -1,0 +1,43 @@
+{
+  "Win32_ComputerSystem": [
+    {
+      "Manufacturer": "Dell Inc.",
+      "Model": "Latitude 5540",
+      "SystemType": "x64-based PC"
+    }
+  ],
+  "Win32_BIOS": [
+    {
+      "SerialNumber": "8H2K9Z3",
+      "SMBIOSBIOSVersion": "1.8.0",
+      "Version": "DELL - 1072009",
+      "ReleaseDate": "20231015000000.000000+000"
+    }
+  ],
+  "Win32_SystemEnclosure": [
+    {
+      "SerialNumber": "8H2K9Z3"
+    }
+  ],
+  "Win32_BaseBoard": [
+    {
+      "Manufacturer": "Dell Inc.",
+      "Product": "08Y3ND",
+      "SerialNumber": "/8H2K9Z3/CNWSC0038D0117/"
+    }
+  ],
+  "Win32_OperatingSystem": [
+    {
+      "Caption": "Microsoft Windows 11 Pro",
+      "Version": "10.0.22631",
+      "BuildNumber": "22631"
+    }
+  ],
+  "SoftwareLicensingProduct": [
+    {
+      "Name": "Windows(R), Professional edition",
+      "LicenseStatus": 1,
+      "PartialProductKey": "3V66T"
+    }
+  ]
+}

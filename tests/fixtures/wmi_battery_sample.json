@@ -1,0 +1,30 @@
+{
+  "BatteryStaticData": [
+    {
+      "DesignedCapacity": 54000,
+      "ManufactureName": "Simplo",
+      "UniqueID": "12894SimploDELL",
+      "Chemistry": 6
+    }
+  ],
+  "BatteryFullChargedCapacity": [
+    {
+      "FullChargedCapacity": 48600
+    }
+  ],
+  "BatteryCycleCount": [
+    {
+      "CycleCount": 42
+    }
+  ],
+  "BatteryStatus": [
+    {
+      "ChargeRate": 0,
+      "DischargeRate": 12500,
+      "Voltage": 11400,
+      "PowerOnline": false,
+      "Charging": false,
+      "Discharging": true
+    }
+  ]
+}

@@ -58,7 +58,9 @@ class ScanWorker(QThread):
                 if isinstance(mod_result, list):
                     for r in mod_result:
                         results.append(r)
-                        self.module_completed.emit(r.module_name, r)
+                    # Emit completion for the parent mod_id so progress tracking properly updates
+                    summary_res = mod_result[0] if mod_result else None
+                    self.module_completed.emit(mod_id, summary_res)
                 elif mod_result is not None:
                     results.append(mod_result)
                     self.module_completed.emit(mod_id, mod_result)

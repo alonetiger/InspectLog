@@ -94,17 +94,29 @@ class ProgressPanel(QWidget):
             self.list_container.addWidget(item)
 
     def set_module_running(self, module_name: str) -> None:
-        if module_name in self._items:
-            self._items[module_name].set_status("running")
+        target = module_name
+        if target not in self._items:
+            for k in self._items:
+                if module_name.startswith(k):
+                    target = k
+                    break
+        if target in self._items:
+            self._items[target].set_status("running")
 
     def set_module_completed(self, module_name: str, has_warnings: bool = False, has_errors: bool = False) -> None:
-        if module_name in self._items:
+        target = module_name
+        if target not in self._items:
+            for k in self._items:
+                if module_name.startswith(k):
+                    target = k
+                    break
+        if target in self._items:
             if has_errors:
-                self._items[module_name].set_status("failed")
+                self._items[target].set_status("failed")
             elif has_warnings:
-                self._items[module_name].set_status("warning")
+                self._items[target].set_status("warning")
             else:
-                self._items[module_name].set_status("completed")
+                self._items[target].set_status("completed")
 
     def set_progress(self, pct: int) -> None:
         self.progress_bar.setValue(pct)

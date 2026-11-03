@@ -80,6 +80,7 @@ class MainWindow(QMainWindow):
 
     def _connect_signals(self) -> None:
         # Home Page actions
+        self.home_page.check_pc_requested.connect(self._on_launch_quick_scan)
         self.home_page.quick_scan_requested.connect(self._on_launch_quick_scan)
         self.home_page.full_test_requested.connect(self._on_launch_full_test)
         self.home_page.seller_claims_requested.connect(self._on_seller_claims_requested)
@@ -91,6 +92,7 @@ class MainWindow(QMainWindow):
         self.scan_page.view_results_requested.connect(self._on_view_results)
 
         # Results Page actions
+        self.results_page.check_pc_again_requested.connect(self._on_launch_quick_scan)
         self.results_page.new_scan_requested.connect(self._on_new_scan)
         self.results_page.export_pdf_requested.connect(self._on_export_pdf)
         self.results_page.export_json_requested.connect(self._on_export_json)

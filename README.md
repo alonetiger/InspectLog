@@ -4,13 +4,51 @@
 
 **Professional Hardware Genuineness, Component Health, & Anti-Fraud Verification Suite for Windows**
 
+<br>
+
+<p align="center">
+  <a href="https://github.com/alonetiger/InspectLog/releases/latest/download/InspectLog.exe">
+    <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD%20NOW-InspectLog.exe%20(Windows%2010%20%2F%2011)-0284C7?style=for-the-badge&logo=windows&logoColor=white" height="46" alt="Download InspectLog.exe" />
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/alonetiger/InspectLog/releases">
+    <img src="https://img.shields.io/badge/📦%20ALL%20RELEASES-v1.0.0-2563EB?style=for-the-badge&logo=github&logoColor=white" height="46" alt="All Releases" />
+  </a>
+</p>
+
+<p align="center">
+  <b>⚡ Single-file portable executable • Zero installation required • Just download and run!</b>
+</p>
+
+<br>
+
 [![Platform: Windows 10 / 11](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4?logo=windows)](https://microsoft.com/windows)
+[![Release: v1.0.0](https://img.shields.io/badge/Release-v1.0.0-success?logo=github)](https://github.com/alonetiger/InspectLog/releases/tag/v1.0.0)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python)](https://python.org)
 [![GUI: PySide6 (Qt6)](https://img.shields.io/badge/GUI-PySide6%20%28Qt6%29-41CD52?logo=qt)](https://qt.io)
-[![Test Suite: 67 Passing](https://img.shields.io/badge/Tests-67%20Passed-brightgreen?logo=pytest)](https://pytest.org)
+[![Test Suite: 68 Passing](https://img.shields.io/badge/Tests-68%20Passed-brightgreen?logo=pytest)](https://pytest.org)
 [![Admin: Required](https://img.shields.io/badge/UAC-Administrator-critical)](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/user-account-control/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 </div>
+
+---
+
+## 📥 Direct Download & Quick Start
+
+You do **not** need Python or any development tools to use Inspect Log. Anyone can download and run the standalone software directly:
+
+| Download Link | Description | Size | Platform |
+| :--- | :--- | :--- | :--- |
+| [**⬇️ Download InspectLog.exe**](https://github.com/alonetiger/InspectLog/releases/latest/download/InspectLog.exe) | Single Portable Windows Executable (Official Release) | 75.6 MB | Windows 10 / 11 (64-bit) |
+| [**📦 GitHub Releases Page**](https://github.com/alonetiger/InspectLog/releases) | View all release notes, assets, and SHA-256 checksums | — | — |
+
+### How to Run:
+1. **Download**: Click the [**Download InspectLog.exe**](https://github.com/alonetiger/InspectLog/releases/latest/download/InspectLog.exe) button above.
+2. **Launch**: Double-click `InspectLog.exe` on your PC.
+3. **Admin Prompt**: Click **Yes** when Windows User Account Control (UAC) prompts for Administrator permissions (required to query low-level drive SMART data and ACPI sensors).
+4. **Inspect**: Click the primary **`🔍 Check PC`** button on the home screen.
+5. **View In-App Report**: Within ~10-15 seconds, your complete hardware authenticity & health report appears directly inside the software dashboard!
 
 ---
 
@@ -58,65 +96,65 @@ When buying pre-owned or refurbished computers, counterfeit components, altered 
 - **Non-Destructive Fake-Capacity Verification**: Writes cryptographically indexed 1 MB blocks across the address space within a safe temporary sandbox (never touching user data), verifies block headers, and immediately cleans up. Detects fake USB drives and counterfeit SSDs with hacked firmware loopbacks.
 - **Drive Performance Benchmark**: Measures sequential and 4K random read/write speeds.
 
-### 4. 🧠 RAM Topography & Bit-Pattern Stress
-- Enumerates total system memory, individual physical DIMM slots, capacity, form factor, memory type (DDR3/DDR4/DDR5), and manufacturer.
-- Identifies **Dual-Channel vs. Single-Channel** memory channel topology.
-- Flags underclocked memory running below rated XMP/JEDEC speeds.
-- **Memory Pattern Test**: Executes a 4-pass bit-pattern stress test (Walking Ones `0x01`, Walking Zeros `0xFE`, Alternating `0xAA`/`0x55`, Random Noise) across free RAM buffers to detect bad cells or parity memory faults.
+### 4. 🧠 RAM Authenticity & Bit-Pattern Stress
+- Enumerates each physical memory slot: Capacity, Configured Speed vs. Rated Speed, Form Factor, Memory Type (DDR4, DDR5, LPDDR), and Manufacturer.
+- Calculates and verifies Single vs. Dual/Quad Channel topology.
+- Flags downclocked RAM running below XMP/EXPO rated speeds.
+- **Built-in Memory Pattern Test**: Executes walking-ones and pseudo-random bit pattern stress tests on configurable blocks of free RAM with real-time progress and hardware error counters.
 
-### 5. ⚡ CPU Genuineness & Thermal Throttling
-- Reads CPU Model, Physical Cores, Logical Threads, Base/Boost Clocks, and L1/L2/L3 Cache architectures.
-- **Anti-Spoofing Database**: Compares OS-reported CPU string against a verified reference database of Intel (Core i3/i5/i7/i9) and AMD (Ryzen 3/5/7/9) architectures. Detects hacked Windows registry strings where an old dual-core Celeron is masqueraded as a Core i9.
-- **Multi-Core Stress Test**: Multi-threaded matrix stress workload with live clock speed and temperature monitoring.
-- **Thermal Throttle Detection**: Analyzes CPU frequency curves under load; detects thermal drops $> 10\%$. Includes automated emergency cutoff at 95°C to protect test machines.
+### 5. ⚡ CPU Spoofing Detector & Thermal Throttling
+- Extracts Vendor, Genuine Model, Architecture, Core Count, Logical Thread Count, Base/Max Clock, and Cache sizes.
+- **Hardware Spoofing Detection Engine**: Compares the reported CPU string against physical core counts, thread topology, and L3 cache size in an internal reference database to detect renamed low-end processors (e.g., Celeron relabeled as Core i9).
+- **Stress Test & Thermal Throttling Verdict**: Stresses all cores using multi-threaded numerical operations while monitoring clock frequency drops ($> 10\%$) and temperature thresholds ($95^\circ\text{C}$ emergency ceiling).
 
-### 6. 🎮 GPU Verification & Stress
-- Audits discrete and integrated GPUs, active driver versions, and verified Video RAM (VRAM) size (bypassing the legacy 32-bit 4 GB `AdapterRAM` WMI clamp via DirectX and Registry queries).
-- Integrates `pynvml` (`nvidia-ml-py`) for real-time dedicated NVIDIA clock, fan, temperature, and power telemetry.
-- GPU shader stress test with artifact detection and temperature logging.
+### 6. 🎮 GPU Authenticity & VRAM Validation
+- Distinguishes between Integrated (iGPU) and Dedicated (dGPU) adapters.
+- Evaluates GPU Model, Driver Version, PCI Vendor ID, and verifies real physical VRAM via 64-bit registry and NVIDIA NVML telemetry.
+- Runs OpenGL/DirectX stress workload while monitoring artifacts, temperature curves, and driver crashes.
 
-### 7. 📺 Display Diagnostics & Fullscreen Pattern Generator
-- Reads native panel resolution, refresh rate, and EDID physical diagonal screen dimensions ($\sqrt{w^2 + h^2} / 2.54$) via `WmiMonitorBasicDisplayParams`.
-- Decodes 3-letter PNP manufacturer codes (Innolux, AU Optronics, LG Display, Samsung, BOE).
-- **Fullscreen Diagnostic Suite**:
-  - 7 test patterns: Pure Red, Green, Blue, Black (backlight bleed), White, 50% Grey (uniformity), and 256-level RGB Gradient (banding).
-  - Floating HUD with keyboard hotkeys (`Space`, `P`, `F`, `Esc`).
+### 7. 🖥️ Display Diagnostics & Pixel Audit
+- Reads active desktop resolution, refresh rate (Hz), DPI scaling, and hardware panel physical size via WMI EDID binary parsing.
+- Flags mismatches between active resolution and native panel resolution.
+- **Full-Screen Interactive Pixel Test**: Full-screen test sequence cycling solid colors (Red, Green, Blue, White, Black, 50% Grey) for dead/stuck pixel detection, gradient banding, and backlight bleed inspection.
 
-### 8. ⌨️ Input, Audio, Camera & I/O Diagnostics
-- **Interactive Keyboard Map**: Visual ANSI keyboard layout where every key lights up green upon physical actuation with press counters and verified key percentage.
-- **Mouse & Touchpad Tester**: Visual mouse canvas validating Left, Right, Middle click, Double-click, Scroll Wheel delta, and cursor tracking trajectory.
-- **Audio Channel Separation**: Synthesizes genuine 16-bit 44.1 kHz stereo audio waveforms with 100% channel isolation (Left channel 440 Hz / Right silent, then Right channel / Left silent).
-- **Microphone Level Meter**: Real-time RMS decibel volume bar and voice activity detection via `QAudioSource`.
-- **Webcam Optical Preview**: Live camera feed powered by `QMediaCaptureSession` and `QVideoWidget`.
-- **Real-Time USB Port Detector**: Live event monitor tracking insertion/removal of flash drives, dongles, and peripherals across all USB ports.
-- **Wireless Diagnostics**: Scans Wi-Fi interfaces, active SSID, BSSID, Signal Quality, 802.11 physical standards, and Bluetooth controller status.
+### 8. 🎮 Interactive Input & I/O Diagnostics
+- **Interactive Keyboard Map**: On-screen keyboard graphic that illuminates keys in real-time as they are pressed.
+- **Touchpad & Mouse Tester**: Visual canvas for left/right/middle click tracking, double-click timing, scroll wheel delta, and cursor gesture tracing.
+- **Webcam Video Preview**: Real-time camera preview test verifying resolution and FPS.
+- **Microphone Audio Meter**: Live decibel VU meter monitoring ambient input levels.
+- **Stereo Audio Speaker Test**: Independent left-channel and right-channel sine wave tone playback (440 Hz / 880 Hz).
+- **USB Port Insertion Monitor**: Guides user through inserting a thumb drive into each physical port, logging device IDs as verified.
 
-### 9. 🌡️ Thermals & Security Audit
-- Live thermal zones via ACPI `MSAcpi_ThermalZoneTemperature` and discrete GPU sensors.
-- Hardware security verification: Secure Boot state, TPM (Trusted Platform Module) version, and Enterprise MDM enrollment check (Activation Lock / Intune / corporate fleet management flags).
+### 9. 🌡️ Thermals & Fans Sensor Monitor
+- Gathers ACPI thermal zone temperatures, fan RPM sensors, and motherboard core voltages via WMI and hardware monitoring providers.
+- Flags overheating idle components ($> 85^\circ\text{C}$).
 
-### 10. 📊 Health Scoring, Claims Matcher & Certified PDF Report
-- **Weighted 0–100 Health Score**: Component weights calibrated by failure impact (Storage 20%, Battery 15%, CPU 15%, RAM 10%, GPU 10%, Display 10%, etc.).
-- **Plain-Language Red Flags & Buyer Advice**: Generates actionable price negotiation advice (e.g., *"Battery has lost 37% of design capacity. Negotiate price down or budget for replacement."*).
-- **Seller-Claims Matcher**: Compare the seller's advertisement (CPU, RAM, Storage, GPU, Battery) against actual test results with token-aware matching and tolerance bounds.
-- **Certified PDF & JSON Export**: Generates professional multi-page reports featuring the official Inspect Log header, system serial number, QR/timestamp metadata, color-coded status badges, and complete data provenance.
+### 10. 🔒 Security, Locks & Enterprise Enrollment
+- **UEFI Secure Boot Status**: Audits whether Secure Boot is enabled.
+- **TPM Security**: Confirms presence and activation of TPM 2.0.
+- **Enterprise MDM Enrollment Check**: Queries registry enrollment providers (Intune, AirWatch, MobileIron) to warn buyers if the laptop is bound to a corporate Mobile Device Management system.
+- **Domain Join Check**: Flags devices bound to active corporate Active Directory or Azure AD domains.
 
 ---
 
-## 🏗️ Architecture & Project Structure
+## 🏗️ Architecture & Clean Code
+
+Inspect Log is architected according to strict separation of concerns:
 
 ```
 InspectLog/
 ├── inspectlog/
-│   ├── constants.py               # Global settings, paths, thresholds, PyInstaller bundle resolver
-│   ├── app.py                     # Qt application bootstrap & lifecycle
-│   ├── __main__.py                # CLI entry point (py -m inspectlog)
-│   ├── core/                      # Hardware abstraction layer (HAL)
-│   │   ├── models.py              # Strongly-typed data models (VerifiedValue, ModuleResult, Status)
-│   │   ├── hal_interface.py       # Base reader interfaces
-│   │   ├── cross_validator.py     # Multi-source confidence engine
-│   │   ├── platform_factory.py    # OS platform dispatch (Windows / Linux / macOS)
-│   │   └── windows/               # Windows low-level readers (WMI, SMART, EDID, Registry, netsh)
+│   ├── core/                      # Hardware Abstraction Layer (HAL)
+│   │   ├── models.py              # VerifiedValue, ModuleResult, Status, Confidence
+│   │   ├── cross_validator.py     # Independent source cross-validation engine
+│   │   ├── hal_interface.py       # HardwareReaderInterface
+│   │   ├── platform_factory.py    # OS detection & HAL instantiation
+│   │   └── windows/               # Windows implementation (WMI, Registry, SMART, NVML)
+│   ├── infra/                     # Infrastructure services
+│   │   ├── admin.py               # UAC elevation & token privilege checks
+│   │   ├── logging.py             # Structured logging (Console + file)
+│   │   ├── config.py              # Application settings & seller claims
+│   │   └── errors.py              # Custom typed exception hierarchy
 │   ├── tests_engine/              # Active verification & stress test engines
 │   │   ├── orchestrator.py        # Scan lifecycle manager (Quick vs Full scan)
 │   │   ├── benchmarks/            # Fake capacity tester & disk speed benchmarks
@@ -133,7 +171,7 @@ InspectLog/
 │       ├── pages/                 # Home, Scan Progress, and Results pages
 │       ├── widgets/               # Module cards, claims dialog, consent modal
 │       └── interactive/           # Keyboard, Mouse, Webcam, Mic, Tone, and Display test windows
-├── tests/                         # Comprehensive pytest test suite (67 unit tests)
+├── tests/                         # Comprehensive pytest test suite (68 unit tests)
 ├── tools/
 │   ├── smartmontools/             # Bundled smartctl.exe v7.5 drive diagnostic utility
 │   └── build/                     # PyInstaller specification & Windows UAC manifest
@@ -143,12 +181,12 @@ InspectLog/
 
 ---
 
-## 💻 Prerequisites & Installation
+## 💻 Developer Setup & Running from Source
 
 ### Requirements
 - **Operating System**: Windows 10 (Build 1809+) or Windows 11 (64-bit)
 - **Python**: 3.12 64-bit
-- **Privileges**: Administrator privileges recommended (required for drive SMART NVMe/ATA pass-through and ACPI thermal queries)
+- **Privileges**: Administrator privileges recommended
 
 ### 1. Clone & Set Up Environment
 ```powershell
@@ -183,7 +221,6 @@ py -m pytest -v
 
 ### Build Command
 ```powershell
-# Build single-file executable using the included spec
 py -m PyInstaller tools/build/inspectlog.spec --clean --distpath dist --workpath build
 ```
 
@@ -196,5 +233,5 @@ dist/InspectLog.exe
 
 ## 🛡️ License & Disclaimers
 
-Inspect Log is distributed under the MIT License.
+Inspect Log is distributed under the MIT License.  
 **Disclaimer**: Inspect Log provides diagnostic measurements and hardware telemetry based on operating system drivers and hardware-reported firmware. While it detects many common forms of component tampering and spoofing, hardware modifications involving low-level microcontroller spoofing may report simulated readings. Always exercise standard diligence when purchasing pre-owned electronics.

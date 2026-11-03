@@ -3,8 +3,8 @@
 from unittest.mock import patch
 import pytest
 
-from hardwareverify.core.models import Status
-from hardwareverify.core.windows.thermal_reader import ThermalReader
+from inspectlog.core.models import Status
+from inspectlog.core.windows.thermal_reader import ThermalReader
 
 
 def test_thermal_reader_with_acpi():
@@ -16,7 +16,7 @@ def test_thermal_reader_with_acpi():
 
     reader = ThermalReader()
 
-    with patch("hardwareverify.core.windows.thermal_reader.safe_wmi_query", side_effect=lambda cls, **kwargs: wmi_tz if "ThermalZone" in cls else []):
+    with patch("inspectlog.core.windows.thermal_reader.safe_wmi_query", side_effect=lambda cls, **kwargs: wmi_tz if "ThermalZone" in cls else []):
         result = reader.read_thermals()
 
     assert result.module_name == "thermals"
@@ -28,7 +28,7 @@ def test_thermal_reader_with_acpi():
 def test_thermal_reader_unavailable():
     reader = ThermalReader()
 
-    with patch("hardwareverify.core.windows.thermal_reader.safe_wmi_query", return_value=[]):
+    with patch("inspectlog.core.windows.thermal_reader.safe_wmi_query", return_value=[]):
         result = reader.read_thermals()
 
     assert not result.readings["cpu_temperature"].is_available

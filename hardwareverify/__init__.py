@@ -1,1 +1,0 @@
-"""HardwareVerify — Hardware Verification Tool."""

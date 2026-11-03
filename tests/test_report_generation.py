@@ -6,11 +6,11 @@ import sys
 import pytest
 from PySide6.QtWidgets import QApplication
 
-from hardwareverify.core.models import Confidence, DataSource, ModuleResult, Status, VerifiedValue
-from hardwareverify.infra.config import SellerClaims
-from hardwareverify.report.json_exporter import JSONReportExporter
-from hardwareverify.report.pdf_generator import PDFReportGenerator
-from hardwareverify.ui.widgets.claims_dialog import SellerClaimsDialog
+from inspectlog.core.models import Confidence, DataSource, ModuleResult, Status, VerifiedValue
+from inspectlog.infra.config import SellerClaims
+from inspectlog.report.json_exporter import JSONReportExporter
+from inspectlog.report.pdf_generator import PDFReportGenerator
+from inspectlog.ui.widgets.claims_dialog import SellerClaimsDialog
 
 
 @pytest.fixture(scope="session")

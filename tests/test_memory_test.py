@@ -1,7 +1,7 @@
 """Unit tests for the memory pattern stress test."""
 
 import pytest
-from hardwareverify.tests_engine.stress.memory_test import run_memory_pattern_test
+from inspectlog.tests_engine.stress.memory_test import run_memory_pattern_test
 
 
 def test_memory_pattern_test_execution():

@@ -4,8 +4,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from hardwareverify.core.models import BatteryHealth, Confidence, Status
-from hardwareverify.core.windows.battery_reader import (
+from inspectlog.core.models import BatteryHealth, Confidence, Status
+from inspectlog.core.windows.battery_reader import (
     BatteryReader,
     parse_powercfg_battery_xml,
 )
@@ -38,8 +38,8 @@ def test_battery_reader_healthy(load_fixture, load_text_fixture):
     mock_ps.percent = 85
     mock_ps.power_plugged = True
 
-    with patch("hardwareverify.core.windows.battery_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(wmi_data)), \
-         patch("hardwareverify.core.windows.battery_reader.fetch_powercfg_data", return_value=(parse_powercfg_battery_xml(xml_content), xml_content)), \
+    with patch("inspectlog.core.windows.battery_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(wmi_data)), \
+         patch("inspectlog.core.windows.battery_reader.fetch_powercfg_data", return_value=(parse_powercfg_battery_xml(xml_content), xml_content)), \
          patch("psutil.sensors_battery", return_value=mock_ps):
         result = reader.read_battery()
 
@@ -75,8 +75,8 @@ def test_battery_reader_worn_battery():
 
     reader = BatteryReader()
 
-    with patch("hardwareverify.core.windows.battery_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(wmi_data)), \
-         patch("hardwareverify.core.windows.battery_reader.fetch_powercfg_data", return_value=(pcfg, "")), \
+    with patch("inspectlog.core.windows.battery_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(wmi_data)), \
+         patch("inspectlog.core.windows.battery_reader.fetch_powercfg_data", return_value=(pcfg, "")), \
          patch("psutil.sensors_battery", return_value=None):
         result = reader.read_battery()
 
@@ -90,8 +90,8 @@ def test_battery_reader_worn_battery():
 def test_battery_reader_no_battery_desktop():
     reader = BatteryReader()
 
-    with patch("hardwareverify.core.windows.battery_reader.safe_wmi_query", return_value=[]), \
-         patch("hardwareverify.core.windows.battery_reader.fetch_powercfg_data", return_value=({}, None)), \
+    with patch("inspectlog.core.windows.battery_reader.safe_wmi_query", return_value=[]), \
+         patch("inspectlog.core.windows.battery_reader.fetch_powercfg_data", return_value=({}, None)), \
          patch("psutil.sensors_battery", return_value=None):
         result = reader.read_battery()
 

@@ -3,14 +3,14 @@
 from unittest.mock import MagicMock, patch
 import pytest
 
-from hardwareverify.core.models import Confidence, Status
-from hardwareverify.core.windows.input_reader import InputReader
+from inspectlog.core.models import Confidence, Status
+from inspectlog.core.windows.input_reader import InputReader
 
 
 def test_input_reader_components():
     reader = InputReader()
 
-    with patch("hardwareverify.core.windows.input_reader.safe_wmi_query") as mock_wmi, \
+    with patch("inspectlog.core.windows.input_reader.safe_wmi_query") as mock_wmi, \
          patch("subprocess.run") as mock_subproc:
 
         # Mock netsh wlan show interfaces

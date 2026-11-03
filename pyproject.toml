@@ -32,8 +32,8 @@ audio = [
 ]
 
 [project.scripts]
-inspectlog = "hardwareverify.__main__:main"
-hardwareverify = "hardwareverify.__main__:main"
+inspectlog = "inspectlog.__main__:main"
+InspectLog = "inspectlog.__main__:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

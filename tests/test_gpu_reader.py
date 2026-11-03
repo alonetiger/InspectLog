@@ -3,8 +3,8 @@
 from unittest.mock import patch
 import pytest
 
-from hardwareverify.core.models import Confidence, Status
-from hardwareverify.core.windows.gpu_reader import GPUReader, _classify_gpu_type
+from inspectlog.core.models import Confidence, Status
+from inspectlog.core.windows.gpu_reader import GPUReader, _classify_gpu_type
 
 
 def test_classify_gpu_type():
@@ -27,8 +27,8 @@ def test_gpu_reader_dual_gpu(load_fixture):
 
     reader = GPUReader()
 
-    with patch("hardwareverify.core.windows.gpu_reader.safe_wmi_query", return_value=wmi_data), \
-         patch("hardwareverify.core.windows.gpu_reader._get_nvidia_telemetry", return_value=nvml_data):
+    with patch("inspectlog.core.windows.gpu_reader.safe_wmi_query", return_value=wmi_data), \
+         patch("inspectlog.core.windows.gpu_reader._get_nvidia_telemetry", return_value=nvml_data):
         results = reader.read_gpu()
 
     assert len(results) == 2

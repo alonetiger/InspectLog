@@ -3,8 +3,8 @@
 from unittest.mock import patch
 import pytest
 
-from hardwareverify.core.models import Status
-from hardwareverify.core.windows.security_reader import SecurityReader
+from inspectlog.core.models import Status
+from inspectlog.core.windows.security_reader import SecurityReader
 
 
 def test_security_reader_clean_pc(load_fixture):
@@ -21,9 +21,9 @@ def test_security_reader_clean_pc(load_fixture):
 
     reader = SecurityReader()
 
-    with patch("hardwareverify.core.windows.security_reader.safe_wmi_query", side_effect=_mock_query), \
-         patch("hardwareverify.core.windows.security_reader._check_secure_boot_registry", return_value=True), \
-         patch("hardwareverify.core.windows.security_reader._check_mdm_enrollments", return_value=[]):
+    with patch("inspectlog.core.windows.security_reader.safe_wmi_query", side_effect=_mock_query), \
+         patch("inspectlog.core.windows.security_reader._check_secure_boot_registry", return_value=True), \
+         patch("inspectlog.core.windows.security_reader._check_mdm_enrollments", return_value=[]):
         result = reader.read_security()
 
     assert result.module_name == "security"
@@ -38,9 +38,9 @@ def test_security_reader_mdm_enrolled(load_fixture):
     # Corporate device enrolled in Intune / Workspace ONE
     reader = SecurityReader()
 
-    with patch("hardwareverify.core.windows.security_reader.safe_wmi_query", return_value=[]), \
-         patch("hardwareverify.core.windows.security_reader._check_secure_boot_registry", return_value=True), \
-         patch("hardwareverify.core.windows.security_reader._check_mdm_enrollments", return_value=["MS DM Server (Intune)"]):
+    with patch("inspectlog.core.windows.security_reader.safe_wmi_query", return_value=[]), \
+         patch("inspectlog.core.windows.security_reader._check_secure_boot_registry", return_value=True), \
+         patch("inspectlog.core.windows.security_reader._check_mdm_enrollments", return_value=["MS DM Server (Intune)"]):
         result = reader.read_security()
 
     assert result.status == Status.FAIL

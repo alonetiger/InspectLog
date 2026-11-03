@@ -3,8 +3,8 @@
 import pytest
 from unittest.mock import patch
 
-from hardwareverify.tests_engine.stress.cpu_stress import run_cpu_stress_test
-from hardwareverify.tests_engine.stress.gpu_stress import run_gpu_stress_test
+from inspectlog.tests_engine.stress.cpu_stress import run_cpu_stress_test
+from inspectlog.tests_engine.stress.gpu_stress import run_gpu_stress_test
 
 
 def test_cpu_stress_short_run():

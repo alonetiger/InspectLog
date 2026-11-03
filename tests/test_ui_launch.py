@@ -5,10 +5,10 @@ import pytest
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication
 
-from hardwareverify.constants import APP_DISPLAY_NAME
-from hardwareverify.core.models import Confidence, ModuleResult, Status, VerifiedValue
-from hardwareverify.ui.main_window import MainWindow
-from hardwareverify.ui.theme import ThemeManager
+from inspectlog.constants import APP_DISPLAY_NAME
+from inspectlog.core.models import Confidence, ModuleResult, Status, VerifiedValue
+from inspectlog.ui.main_window import MainWindow
+from inspectlog.ui.theme import ThemeManager
 
 
 @pytest.fixture(scope="session")

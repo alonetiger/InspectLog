@@ -6,14 +6,14 @@ from PySide6.QtCore import QPoint, Qt
 from PySide6.QtGui import QKeyEvent, QMouseEvent, QWheelEvent
 from PySide6.QtWidgets import QApplication
 
-from hardwareverify.ui.interactive.display_test_window import (
+from inspectlog.ui.interactive.display_test_window import (
     PATTERNS,
     DisplayTestResult,
     DisplayTestWindow,
 )
-from hardwareverify.ui.interactive.interactive_suite_dialog import InteractiveSuiteDialog
-from hardwareverify.ui.interactive.keyboard_test_widget import KeyboardCanvas, KeyboardTestWidget
-from hardwareverify.ui.interactive.mouse_test_widget import MouseCanvas, MouseGraphicWidget, MouseTestWidget
+from inspectlog.ui.interactive.interactive_suite_dialog import InteractiveSuiteDialog
+from inspectlog.ui.interactive.keyboard_test_widget import KeyboardCanvas, KeyboardTestWidget
+from inspectlog.ui.interactive.mouse_test_widget import MouseCanvas, MouseGraphicWidget, MouseTestWidget
 
 
 @pytest.fixture(scope="session")

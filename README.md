@@ -106,11 +106,11 @@ When buying pre-owned or refurbished computers, counterfeit components, altered 
 ## 🏗️ Architecture & Project Structure
 
 ```
-HardwareVerify/
-├── hardwareverify/
+InspectLog/
+├── inspectlog/
 │   ├── constants.py               # Global settings, paths, thresholds, PyInstaller bundle resolver
 │   ├── app.py                     # Qt application bootstrap & lifecycle
-│   ├── __main__.py                # CLI entry point (py -m hardwareverify)
+│   ├── __main__.py                # CLI entry point (py -m inspectlog)
 │   ├── core/                      # Hardware abstraction layer (HAL)
 │   │   ├── models.py              # Strongly-typed data models (VerifiedValue, ModuleResult, Status)
 │   │   ├── hal_interface.py       # Base reader interfaces
@@ -167,7 +167,7 @@ py -m pip install -r requirements.txt
 ### 2. Run from Source
 ```powershell
 # Launch GUI application
-py -m hardwareverify
+py -m inspectlog
 ```
 
 ### 3. Run Automated Unit Tests

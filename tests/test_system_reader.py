@@ -5,8 +5,8 @@ from unittest.mock import patch
 
 import pytest
 
-from inspectlog.core.models import Confidence, Status
-from inspectlog.core.windows.system_reader import SystemReader, parse_wmi_date
+from hardwareverify.core.models import Confidence, Status
+from hardwareverify.core.windows.system_reader import SystemReader, parse_wmi_date
 
 
 def mock_safe_wmi_query_factory(fixture_data: dict):
@@ -32,7 +32,7 @@ def test_system_reader_healthy(load_fixture):
     data = load_fixture("wmi_system_sample.json")
     reader = SystemReader()
 
-    with patch("inspectlog.core.windows.system_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(data)):
+    with patch("hardwareverify.core.windows.system_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(data)):
         result = reader.read_system_identity()
 
     assert result.module_name == "system_identity"
@@ -69,7 +69,7 @@ def test_system_reader_fake_serial(load_fixture):
 
     reader = SystemReader()
 
-    with patch("inspectlog.core.windows.system_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(data)):
+    with patch("hardwareverify.core.windows.system_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(data)):
         result = reader.read_system_identity()
 
     assert result.status == Status.WARNING
@@ -80,7 +80,7 @@ def test_system_reader_fake_serial(load_fixture):
 def test_system_reader_empty_wmi():
     reader = SystemReader()
 
-    with patch("inspectlog.core.windows.system_reader.safe_wmi_query", return_value=[]):
+    with patch("hardwareverify.core.windows.system_reader.safe_wmi_query", return_value=[]):
         result = reader.read_system_identity()
 
     assert result.module_name == "system_identity"
@@ -96,7 +96,7 @@ def test_system_reader_unlicensed(load_fixture):
 
     reader = SystemReader()
 
-    with patch("inspectlog.core.windows.system_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(data)):
+    with patch("hardwareverify.core.windows.system_reader.safe_wmi_query", side_effect=mock_safe_wmi_query_factory(data)):
         result = reader.read_system_identity()
 
     assert result.status == Status.WARNING

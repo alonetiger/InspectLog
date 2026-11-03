@@ -4,7 +4,7 @@ import os
 import tempfile
 import pytest
 
-from inspectlog.tests_engine.benchmarks.disk_benchmark import run_disk_benchmark
+from hardwareverify.tests_engine.benchmarks.disk_benchmark import run_disk_benchmark
 
 
 def test_disk_benchmark_execution():

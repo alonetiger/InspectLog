@@ -2,9 +2,9 @@
 
 import pytest
 
-from inspectlog.core.models import Confidence, ModuleResult, Status, VerifiedValue
-from inspectlog.infra.config import SellerClaims
-from inspectlog.report.claims_matcher import ClaimsMatcher
+from hardwareverify.core.models import Confidence, ModuleResult, Status, VerifiedValue
+from hardwareverify.infra.config import SellerClaims
+from hardwareverify.report.claims_matcher import ClaimsMatcher
 
 
 def test_claims_matcher_all_match():

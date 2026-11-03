@@ -3,9 +3,9 @@
 from unittest.mock import MagicMock, patch
 import pytest
 
-from inspectlog.core.models import Confidence, Status
-from inspectlog.core.windows.cpu_reader import CPUReader
-from inspectlog.core.windows.cpu_spoof_db import verify_cpu_authenticity
+from hardwareverify.core.models import Confidence, Status
+from hardwareverify.core.windows.cpu_reader import CPUReader
+from hardwareverify.core.windows.cpu_spoof_db import verify_cpu_authenticity
 
 
 def test_cpu_spoof_detector_genuine():
@@ -55,7 +55,7 @@ def test_cpu_reader_healthy(load_fixture):
     with patch("cpuinfo.get_cpu_info", return_value=cinfo_data), \
          patch("psutil.cpu_count", side_effect=lambda logical=False: 20 if logical else 14), \
          patch("psutil.cpu_freq", return_value=mock_freq), \
-         patch("inspectlog.core.windows.cpu_reader.safe_wmi_query", return_value=wmi_data):
+         patch("hardwareverify.core.windows.cpu_reader.safe_wmi_query", return_value=wmi_data):
         result = reader.read_cpu()
 
     assert result.module_name == "cpu"
@@ -100,7 +100,7 @@ def test_cpu_reader_spoofed_detection(load_fixture):
     with patch("cpuinfo.get_cpu_info", return_value=cinfo_data), \
          patch("psutil.cpu_count", side_effect=lambda logical=False: 8 if logical else 4), \
          patch("psutil.cpu_freq", return_value=mock_freq), \
-         patch("inspectlog.core.windows.cpu_reader.safe_wmi_query", return_value=wmi_data):
+         patch("hardwareverify.core.windows.cpu_reader.safe_wmi_query", return_value=wmi_data):
         result = reader.read_cpu()
 
     assert result.status == Status.FAIL

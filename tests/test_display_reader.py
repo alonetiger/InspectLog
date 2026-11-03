@@ -3,8 +3,8 @@
 from unittest.mock import patch
 import pytest
 
-from inspectlog.core.models import Confidence, Status
-from inspectlog.core.windows.display_reader import DisplayReader
+from hardwareverify.core.models import Confidence, Status
+from hardwareverify.core.windows.display_reader import DisplayReader
 
 
 def test_decode_edid_chars():

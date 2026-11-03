@@ -2,8 +2,8 @@
 
 import pytest
 
-from inspectlog.core.models import Confidence, DataSource, ModuleResult, Status, VerifiedValue
-from inspectlog.report.scoring import ScoringEngine
+from hardwareverify.core.models import Confidence, DataSource, ModuleResult, Status, VerifiedValue
+from hardwareverify.report.scoring import ScoringEngine
 
 
 def test_scoring_engine_high_confidence():

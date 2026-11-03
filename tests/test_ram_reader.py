@@ -3,8 +3,8 @@
 from unittest.mock import MagicMock, patch
 import pytest
 
-from inspectlog.core.models import Confidence, Status
-from inspectlog.core.windows.ram_reader import RAMReader
+from hardwareverify.core.models import Confidence, Status
+from hardwareverify.core.windows.ram_reader import RAMReader
 
 
 def test_ram_reader_dual_channel(load_fixture):
@@ -24,7 +24,7 @@ def test_ram_reader_dual_channel(load_fixture):
 
     reader = RAMReader()
 
-    with patch("inspectlog.core.windows.ram_reader.safe_wmi_query", side_effect=_mock_query), \
+    with patch("hardwareverify.core.windows.ram_reader.safe_wmi_query", side_effect=_mock_query), \
          patch("psutil.virtual_memory", return_value=mock_vm):
         result = reader.read_ram()
 
@@ -74,7 +74,7 @@ def test_ram_reader_single_channel():
 
     reader = RAMReader()
 
-    with patch("inspectlog.core.windows.ram_reader.safe_wmi_query", side_effect=_mock_query), \
+    with patch("hardwareverify.core.windows.ram_reader.safe_wmi_query", side_effect=_mock_query), \
          patch("psutil.virtual_memory", return_value=mock_vm):
         result = reader.read_ram()
 
@@ -108,7 +108,7 @@ def test_ram_reader_underclocked_ram():
 
     reader = RAMReader()
 
-    with patch("inspectlog.core.windows.ram_reader.safe_wmi_query", side_effect=_mock_query), \
+    with patch("hardwareverify.core.windows.ram_reader.safe_wmi_query", side_effect=_mock_query), \
          patch("psutil.virtual_memory", return_value=mock_vm):
         result = reader.read_ram()
 

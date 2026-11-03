@@ -4,7 +4,7 @@ import os
 import tempfile
 import pytest
 
-from inspectlog.tests_engine.benchmarks.fake_capacity import (
+from hardwareverify.tests_engine.benchmarks.fake_capacity import (
     generate_test_block,
     run_fake_capacity_check,
     verify_test_block,

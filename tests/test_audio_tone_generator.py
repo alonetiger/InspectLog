@@ -5,7 +5,7 @@ import wave
 import io
 import pytest
 
-from inspectlog.ui.interactive.audio_tone_generator import generate_stereo_wav
+from hardwareverify.ui.interactive.audio_tone_generator import generate_stereo_wav
 
 
 def test_generate_stereo_wav_valid_container():

@@ -3,8 +3,8 @@
 from unittest.mock import patch
 import pytest
 
-from inspectlog.core.models import Confidence, Status
-from inspectlog.core.windows.storage_reader import (
+from hardwareverify.core.models import Confidence, Status
+from hardwareverify.core.windows.storage_reader import (
     StorageReader,
     parse_smartctl_device_telemetry,
 )
@@ -59,9 +59,9 @@ def test_storage_reader_healthy(load_fixture):
 
     reader = StorageReader()
 
-    with patch("inspectlog.core.windows.storage_reader.find_smartctl_binary", return_value="smartctl.exe"), \
-         patch("inspectlog.core.windows.storage_reader.run_smartctl_json", side_effect=_mock_smartctl), \
-         patch("inspectlog.core.windows.storage_reader.safe_wmi_query", return_value=wmi_disk):
+    with patch("hardwareverify.core.windows.storage_reader.find_smartctl_binary", return_value="smartctl.exe"), \
+         patch("hardwareverify.core.windows.storage_reader.run_smartctl_json", side_effect=_mock_smartctl), \
+         patch("hardwareverify.core.windows.storage_reader.safe_wmi_query", return_value=wmi_disk):
         results = reader.read_storage()
 
     assert len(results) == 1
@@ -101,9 +101,9 @@ def test_storage_reader_smart_failing(load_fixture):
 
     reader = StorageReader()
 
-    with patch("inspectlog.core.windows.storage_reader.find_smartctl_binary", return_value="smartctl.exe"), \
-         patch("inspectlog.core.windows.storage_reader.run_smartctl_json", side_effect=_mock_smartctl), \
-         patch("inspectlog.core.windows.storage_reader.safe_wmi_query", return_value=wmi_disk):
+    with patch("hardwareverify.core.windows.storage_reader.find_smartctl_binary", return_value="smartctl.exe"), \
+         patch("hardwareverify.core.windows.storage_reader.run_smartctl_json", side_effect=_mock_smartctl), \
+         patch("hardwareverify.core.windows.storage_reader.safe_wmi_query", return_value=wmi_disk):
         results = reader.read_storage()
 
     assert len(results) == 1
@@ -137,9 +137,9 @@ def test_storage_reader_bad_sectors(load_fixture):
 
     reader = StorageReader()
 
-    with patch("inspectlog.core.windows.storage_reader.find_smartctl_binary", return_value="smartctl.exe"), \
-         patch("inspectlog.core.windows.storage_reader.run_smartctl_json", side_effect=_mock_smartctl), \
-         patch("inspectlog.core.windows.storage_reader.safe_wmi_query", return_value=wmi_disk):
+    with patch("hardwareverify.core.windows.storage_reader.find_smartctl_binary", return_value="smartctl.exe"), \
+         patch("hardwareverify.core.windows.storage_reader.run_smartctl_json", side_effect=_mock_smartctl), \
+         patch("hardwareverify.core.windows.storage_reader.safe_wmi_query", return_value=wmi_disk):
         results = reader.read_storage()
 
     res = results[0]

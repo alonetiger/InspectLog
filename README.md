@@ -205,7 +205,7 @@ py -m pip install -r requirements.txt
 ### 2. Run from Source
 ```powershell
 # Launch GUI application
-py -m inspectlog
+py -m hardwareverify
 ```
 
 ### 3. Run Automated Unit Tests

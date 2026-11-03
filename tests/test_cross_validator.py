@@ -1,8 +1,8 @@
 """Unit tests for the cross-validation engine."""
 
 import pytest
-from inspectlog.core.cross_validator import cross_validate, cross_validate_numeric
-from inspectlog.core.models import Confidence
+from hardwareverify.core.cross_validator import cross_validate, cross_validate_numeric
+from hardwareverify.core.models import Confidence
 
 
 def test_cross_validate_single_source():

@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.backends._legacy:_Backend"
 
 [project]
-name = "inspectlog"
+name = "hardwareverify"
 version = "1.0.0"
 description = "Inspect Log - Hardware Genuineness and Health Verification Suite for Windows"
 requires-python = ">=3.12"
@@ -32,8 +32,9 @@ audio = [
 ]
 
 [project.scripts]
-inspectlog = "inspectlog.__main__:main"
-InspectLog = "inspectlog.__main__:main"
+inspectlog = "hardwareverify.__main__:main"
+InspectLog = "hardwareverify.__main__:main"
+hardwareverify = "hardwareverify.__main__:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

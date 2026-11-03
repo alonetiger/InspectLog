@@ -20,12 +20,13 @@ from inspectlog.infra.logging import get_logger
 logger = get_logger("gpu_reader")
 
 import warnings
-warnings.filterwarnings("ignore", category=FutureWarning, module="pynvml")
-try:
-    import pynvml
-    HAS_PYNVML = True
-except ImportError:
-    HAS_PYNVML = False
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore", FutureWarning)
+    try:
+        import pynvml
+        HAS_PYNVML = True
+    except ImportError:
+        HAS_PYNVML = False
 
 
 def _read_registry_vram_bytes(adapter_index: int = 0) -> int | None:

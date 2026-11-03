@@ -104,9 +104,16 @@ class SystemReader:
         bios_serial = bios_rows[0].get("SerialNumber") if bios_rows else None
         enclosure_serial = enclosure_rows[0].get("SerialNumber") if enclosure_rows else None
 
+        b_str = str(bios_serial).strip() if bios_serial else None
+        e_str = str(enclosure_serial).strip() if enclosure_serial else None
+
+        # Filter out generic unpopulated OEM placeholder enclosure string if bios_serial is genuine
+        if e_str and e_str.lower() in FAKE_SERIALS and b_str and b_str.lower() not in FAKE_SERIALS:
+            e_str = None
+
         serial_readings = [
-            ("WMI:Win32_BIOS.SerialNumber", str(bios_serial).strip() if bios_serial else None),
-            ("WMI:Win32_SystemEnclosure.SerialNumber", str(enclosure_serial).strip() if enclosure_serial else None),
+            ("WMI:Win32_BIOS.SerialNumber", b_str),
+            ("WMI:Win32_SystemEnclosure.SerialNumber", e_str),
         ]
         serial_val = cross_validate(serial_readings)
 

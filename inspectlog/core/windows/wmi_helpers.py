@@ -96,7 +96,7 @@ def safe_wmi_query(
 
         return output
     except Exception as e:
-        logger.warning(
+        logger.debug(
             "WMI query failed for class '%s' in namespace '%s': %s",
             wmi_class, namespace, e
         )

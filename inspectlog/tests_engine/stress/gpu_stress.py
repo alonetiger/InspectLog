@@ -14,12 +14,13 @@ from inspectlog.infra.logging import get_logger
 logger = get_logger("gpu_stress")
 
 import warnings
-warnings.filterwarnings("ignore", category=FutureWarning, module="pynvml")
-try:
-    import pynvml
-    HAS_PYNVML = True
-except ImportError:
-    HAS_PYNVML = False
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore", FutureWarning)
+    try:
+        import pynvml
+        HAS_PYNVML = True
+    except ImportError:
+        HAS_PYNVML = False
 
 
 def _get_gpu_temperature() -> float | None:

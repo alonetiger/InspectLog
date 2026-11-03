@@ -2,7 +2,7 @@
 
 import sys
 import pytest
-from PySide6.QtCore import QPoint, Qt
+from PySide6.QtCore import QPoint, QPointF, Qt
 from PySide6.QtGui import QKeyEvent, QMouseEvent, QWheelEvent
 from PySide6.QtWidgets import QApplication
 
@@ -69,10 +69,11 @@ def test_mouse_canvas(qapp):
     graphic = MouseGraphicWidget()
     canvas = MouseCanvas(graphic)
 
-    # Simulate Left click
+    # Simulate Left click (Qt6 non-deprecated signature: type, localPos, scenePos, button, buttons, modifiers)
     l_press = QMouseEvent(
         QMouseEvent.Type.MouseButtonPress,
-        QPoint(100, 100),
+        QPointF(100, 100),
+        QPointF(100, 100),
         Qt.MouseButton.LeftButton,
         Qt.MouseButton.LeftButton,
         Qt.KeyboardModifier.NoModifier,
@@ -84,7 +85,8 @@ def test_mouse_canvas(qapp):
     # Simulate Right click
     r_press = QMouseEvent(
         QMouseEvent.Type.MouseButtonPress,
-        QPoint(100, 100),
+        QPointF(100, 100),
+        QPointF(100, 100),
         Qt.MouseButton.RightButton,
         Qt.MouseButton.RightButton,
         Qt.KeyboardModifier.NoModifier,
@@ -95,8 +97,8 @@ def test_mouse_canvas(qapp):
 
     # Simulate scroll wheel
     wheel = QWheelEvent(
-        QPoint(100, 100),
-        QPoint(100, 100),
+        QPointF(100, 100),
+        QPointF(100, 100),
         QPoint(0, 0),
         QPoint(0, 120),
         Qt.MouseButton.NoButton,

@@ -110,7 +110,7 @@ class MouseCanvas(QFrame):
         if event.button() == Qt.MouseButton.LeftButton:
             self.left_clicks += 1
             self.graphic.left_pressed = True
-            self.current_path = [event.pos()]
+            self.current_path = [event.position().toPoint() if hasattr(event, "position") else event.pos()]
             self.paths.append(self.current_path)
         elif event.button() == Qt.MouseButton.RightButton:
             self.right_clicks += 1
@@ -143,7 +143,7 @@ class MouseCanvas(QFrame):
     def mouseMoveEvent(self, event: QMouseEvent) -> None:
         if event.buttons() & Qt.MouseButton.LeftButton:
             if self.current_path:
-                self.current_path.append(event.pos())
+                self.current_path.append(event.position().toPoint() if hasattr(event, "position") else event.pos())
                 self.update()
         event.accept()
 

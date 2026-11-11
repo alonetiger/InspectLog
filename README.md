@@ -231,6 +231,14 @@ dist/InspectLog.exe
 
 ---
 
+## 🎨 Theme & Icons
+
+Inspect Log uses the **Glass Transparent** theme: frosted translucent cards over an aurora gradient, in dark and light variants (toggle with the **Theme** button on the home screen).
+
+Icons by [srip](https://www.flaticon.com/authors/srip) from [Flaticon](https://www.flaticon.com/), used under the Flaticon free license with attribution. See [`hardwareverify/ui/assets/icons/ATTRIBUTION.md`](hardwareverify/ui/assets/icons/ATTRIBUTION.md) for the full list.
+
+---
+
 ## 🛡️ License & Disclaimers
 
 Inspect Log is distributed under the MIT License.  

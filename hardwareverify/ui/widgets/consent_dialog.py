@@ -19,7 +19,8 @@ class StressTestConsentDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Consent Required — Intensive Hardware Tests")
-        self.setFixedSize(520, 360)
+        # A fixed height clipped the safeguards list on 125%+ display scaling
+        self.setMinimumWidth(540)
         self.setModal(True)
 
         self._setup_ui()
@@ -31,7 +32,8 @@ class StressTestConsentDialog(QDialog):
 
         # Title
         title = QLabel("⚠️ System Stress Test Consent")
-        title.setStyleSheet("font-size: 18px; font-weight: 700; color: #f59e0b;")
+        title.setObjectName("warningText")
+        title.setStyleSheet("font-size: 18px; font-weight: 700;")
         layout.addWidget(title)
 
         # Information body

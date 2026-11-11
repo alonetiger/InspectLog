@@ -31,29 +31,6 @@ class SellerClaimsDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle("InspectLog — Enter Seller Advertised Claims")
         self.resize(540, 520)
-        self.setStyleSheet("""
-            QDialog {
-                background-color: #0F172A;
-                color: #F8FAFC;
-                font-family: 'Segoe UI', system-ui, sans-serif;
-            }
-            QLabel {
-                color: #CBD5E1;
-                font-size: 13px;
-                font-weight: 500;
-            }
-            QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox {
-                background-color: #1E293B;
-                color: #F8FAFC;
-                border: 1px solid #334155;
-                border-radius: 6px;
-                padding: 6px 10px;
-                font-size: 13px;
-            }
-            QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QComboBox:focus {
-                border: 1px solid #38BDF8;
-            }
-        """)
 
         self.claims = current_claims
         self._init_ui()
@@ -64,28 +41,22 @@ class SellerClaimsDialog(QDialog):
         main_layout.setContentsMargins(24, 24, 24, 24)
 
         title = QLabel("Compare Against Seller's Advertisement")
-        title.setStyleSheet("font-size: 18px; font-weight: 700; color: #F8FAFC;")
+        title.setObjectName("heroTitle")
         main_layout.addWidget(title)
 
         desc = QLabel(
             "Enter what the seller claimed in their listing or text message. "
             "InspectLog will highlight any shortfalls, fake specs, or downgraded components."
         )
-        desc.setStyleSheet("color: #94A3B8; font-size: 12px; line-height: 1.4;")
+        desc.setObjectName("textSecondary")
         desc.setWordWrap(True)
         main_layout.addWidget(desc)
 
         # Form container
         form_frame = QFrame()
-        form_frame.setStyleSheet("""
-            QFrame {
-                background-color: #1E293B;
-                border: 1px solid #334155;
-                border-radius: 10px;
-                padding: 16px;
-            }
-        """)
+        form_frame.setObjectName("cardFrame")
         form_layout = QFormLayout(form_frame)
+        form_layout.setContentsMargins(20, 18, 20, 18)
         form_layout.setSpacing(12)
         form_layout.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
 
@@ -151,49 +122,18 @@ class SellerClaimsDialog(QDialog):
         # Buttons
         btn_row = QHBoxLayout()
         btn_clear = QPushButton("Clear Claims")
-        btn_clear.setStyleSheet("""
-            QPushButton {
-                background-color: #334155;
-                color: #CBD5E1;
-                font-weight: 600;
-                padding: 8px 16px;
-                border-radius: 6px;
-                border: none;
-            }
-            QPushButton:hover { background-color: #475569; }
-        """)
+        btn_clear.setObjectName("dangerButton")
         btn_clear.clicked.connect(self._clear_claims)
         btn_row.addWidget(btn_clear)
 
         btn_row.addStretch()
 
         btn_cancel = QPushButton("Cancel")
-        btn_cancel.setStyleSheet("""
-            QPushButton {
-                background-color: transparent;
-                color: #94A3B8;
-                font-weight: 600;
-                padding: 8px 16px;
-                border: 1px solid #334155;
-                border-radius: 6px;
-            }
-            QPushButton:hover { background-color: #1E293B; color: #F8FAFC; }
-        """)
+        btn_cancel.setObjectName("secondaryButton")
         btn_cancel.clicked.connect(self.reject)
         btn_row.addWidget(btn_cancel)
 
         btn_save = QPushButton("Save & Compare")
-        btn_save.setStyleSheet("""
-            QPushButton {
-                background-color: #0284C7;
-                color: white;
-                font-weight: 700;
-                padding: 8px 20px;
-                border-radius: 6px;
-                border: none;
-            }
-            QPushButton:hover { background-color: #0369A1; }
-        """)
         btn_save.clicked.connect(self._save_claims)
         btn_row.addWidget(btn_save)
 

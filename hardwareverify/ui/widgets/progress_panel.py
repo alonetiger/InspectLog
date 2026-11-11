@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from PySide6.QtCore import Qt
+from hardwareverify.ui.icons import GlassIcon
 from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
@@ -25,8 +26,8 @@ class ModuleProgressItem(QFrame):
         layout.setContentsMargins(12, 10, 12, 10)
         layout.setSpacing(10)
 
-        self.icon_lbl = QLabel(icon)
-        self.icon_lbl.setStyleSheet("font-size: 18px;")
+        # icon is kept in the signature for callers; the Flaticon set is looked up by module name
+        self.icon_lbl = GlassIcon(module_name, icon_size=20, padding=6)
         layout.addWidget(self.icon_lbl)
 
         self.name_lbl = QLabel(display_name)
@@ -40,21 +41,18 @@ class ModuleProgressItem(QFrame):
         layout.addWidget(self.status_lbl)
 
     def set_status(self, status: str, detail: str | None = None) -> None:
-        if status == "running":
-            self.status_lbl.setText("🔄 Running...")
-            self.status_lbl.setStyleSheet("color: #3b82f6; font-weight: 600;")
-        elif status == "completed":
-            self.status_lbl.setText("✅ Completed")
-            self.status_lbl.setStyleSheet("color: #10b981; font-weight: 600;")
-        elif status == "warning":
-            self.status_lbl.setText("⚠️ Warning")
-            self.status_lbl.setStyleSheet("color: #f59e0b; font-weight: 600;")
-        elif status == "failed":
-            self.status_lbl.setText("❌ Failed")
-            self.status_lbl.setStyleSheet("color: #ef4444; font-weight: 600;")
-        else:
-            self.status_lbl.setText("⏳ Pending")
-            self.status_lbl.setStyleSheet("color: #64748b;")
+        text, role = {
+            "running": ("🔄 Running...", "infoText"),
+            "completed": ("✅ Completed", "successText"),
+            "warning": ("⚠️ Warning", "warningText"),
+            "failed": ("❌ Failed", "dangerText"),
+        }.get(status, ("⏳ Pending", "textMuted"))
+        self.status_lbl.setText(text)
+        self.status_lbl.setObjectName(role)
+        self.status_lbl.setStyleSheet("font-weight: 600;")
+        # objectName selectors are only re-evaluated on polish
+        self.status_lbl.style().unpolish(self.status_lbl)
+        self.status_lbl.style().polish(self.status_lbl)
 
 
 class ProgressPanel(QWidget):

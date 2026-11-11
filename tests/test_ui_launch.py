@@ -30,7 +30,8 @@ def test_main_window_init(qapp):
     # Should start on Page 0 (Home Page)
     assert window.stacked_widget.currentIndex() == 0
     assert hasattr(window.home_page, "check_pc_btn")
-    assert window.home_page.check_pc_btn.text() == "🔍 Check PC"
+    assert window.home_page.check_pc_btn.text().strip() == "Check PC"
+    assert not window.home_page.check_pc_btn.icon().isNull()
 
     # Test Theme Toggle
     ThemeManager.apply_theme(qapp, "light")

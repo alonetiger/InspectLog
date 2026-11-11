@@ -27,7 +27,7 @@ from hardwareverify.tests_engine.orchestrator import ScanOrchestrator
 from hardwareverify.ui.pages.home_page import HomePage
 from hardwareverify.ui.pages.results_page import ResultsPage
 from hardwareverify.ui.pages.scan_page import ScanPage
-from hardwareverify.ui.theme import ThemeManager
+from hardwareverify.ui.theme import GlassBackdrop, ThemeManager, apply_window_chrome
 from hardwareverify.ui.widgets.claims_dialog import SellerClaimsDialog
 from hardwareverify.ui.widgets.consent_dialog import StressTestConsentDialog
 
@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
         self._connect_signals()
 
     def _setup_ui(self) -> None:
-        self.central_widget = QWidget(self)
+        self.central_widget = GlassBackdrop(self)
         self.central_widget.setObjectName("centralWidget")
         self.setCentralWidget(self.central_widget)
 
@@ -79,9 +79,9 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setCurrentIndex(0)
 
     def _connect_signals(self) -> None:
-        # Home Page actions
+        # Home Page actions (check_pc_requested and quick_scan_requested both fire on one
+        # Check PC click, so only one of them may start the scan)
         self.home_page.check_pc_requested.connect(self._on_launch_quick_scan)
-        self.home_page.quick_scan_requested.connect(self._on_launch_quick_scan)
         self.home_page.full_test_requested.connect(self._on_launch_full_test)
         self.home_page.seller_claims_requested.connect(self._on_seller_claims_requested)
         self.home_page.interactive_diagnostics_requested.connect(self._on_launch_interactive_diagnostics)
@@ -228,8 +228,15 @@ class MainWindow(QMainWindow):
                 logger.exception("Failed to export JSON: %s", e)
                 QMessageBox.critical(self, "Export Failed", f"Could not export JSON data:\n{e}")
 
+    def showEvent(self, event) -> None:
+        super().showEvent(event)
+        apply_window_chrome(self, ThemeManager.current_theme() == "dark")
+
     def _on_toggle_theme(self) -> None:
         app = QApplication.instance()
         if app:
             new_theme = "light" if ThemeManager.current_theme() == "dark" else "dark"
             ThemeManager.apply_theme(app, new_theme)
+            # Gauges and status colors are painted from the palette, so refresh them too
+            if self._current_results:
+                self.results_page.display_results(self._current_results, claims=self._config.seller_claims)

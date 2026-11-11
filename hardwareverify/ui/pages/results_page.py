@@ -5,8 +5,8 @@ from __future__ import annotations
 import time
 from typing import Any
 
-from PySide6.QtCore import Qt, Signal
-from PySide6.QtGui import QCursor, QFont
+from PySide6.QtCore import QSize, Qt, Signal
+from PySide6.QtGui import QColor, QCursor, QFont
 from PySide6.QtWidgets import (
     QButtonGroup,
     QFrame,
@@ -28,6 +28,8 @@ from hardwareverify.infra.config import SellerClaims
 from hardwareverify.report.claims_matcher import ClaimsMatcher, ClaimsReport
 from hardwareverify.report.scoring import ScoringEngine, ScoringSummary
 from hardwareverify.ui.widgets.health_gauge import HealthGauge
+from hardwareverify.ui.icons import html_img, icon
+from hardwareverify.ui.theme import ThemeManager
 from hardwareverify.ui.widgets.module_card import ModuleCard
 
 
@@ -67,12 +69,10 @@ class ResultsPage(QWidget):
 
         page_title = QLabel("Hardware Inspection Report")
         page_title.setObjectName("pageTitle")
-        page_title.setStyleSheet("font-size: 24px; font-weight: 800; color: #F8FAFC;")
         title_col.addWidget(page_title)
 
         self.report_meta_lbl = QLabel("Inspection completed • All telemetry verified in software")
         self.report_meta_lbl.setObjectName("textSecondary")
-        self.report_meta_lbl.setStyleSheet("color: #94A3B8; font-size: 12px;")
         title_col.addWidget(self.report_meta_lbl)
         top_header.addLayout(title_col, 1)
 
@@ -80,33 +80,21 @@ class ResultsPage(QWidget):
         actions_row = QHBoxLayout()
         actions_row.setSpacing(10)
 
-        self.recheck_btn = QPushButton("🔄 Check PC Again")
+        self.recheck_btn = QPushButton(" Check PC Again")
         self.recheck_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.recheck_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #2563EB;
-                color: #FFFFFF;
-                font-weight: 700;
-                font-size: 13px;
-                padding: 8px 18px;
-                border-radius: 8px;
-                border: 1px solid #3B82F6;
-            }
-            QPushButton:hover {
-                background-color: #1D4ED8;
-            }
-        """)
+        self.recheck_btn.setFixedHeight(36)
+        self.recheck_btn.setMinimumWidth(160)
         self.recheck_btn.clicked.connect(self._on_check_again)
         actions_row.addWidget(self.recheck_btn)
 
-        self.home_btn = QPushButton("🏠 Home")
+        self.home_btn = QPushButton(" Home")
         self.home_btn.setObjectName("secondaryButton")
         self.home_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.home_btn.setFixedHeight(36)
         self.home_btn.clicked.connect(self.new_scan_requested.emit)
         actions_row.addWidget(self.home_btn)
 
-        self.guided_btn = QPushButton("🎮 Diagnostics")
+        self.guided_btn = QPushButton(" Diagnostics")
         self.guided_btn.setObjectName("secondaryButton")
         self.guided_btn.setToolTip("Interactive test for Screen, Keyboard, Audio & Ports")
         self.guided_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -114,7 +102,7 @@ class ResultsPage(QWidget):
         self.guided_btn.clicked.connect(self.guided_diagnostics_requested.emit)
         actions_row.addWidget(self.guided_btn)
 
-        self.claims_btn = QPushButton("📋 Seller Claims")
+        self.claims_btn = QPushButton(" Seller Claims")
         self.claims_btn.setObjectName("secondaryButton")
         self.claims_btn.setToolTip("Compare results with seller advertised specs")
         self.claims_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -122,23 +110,19 @@ class ResultsPage(QWidget):
         self.claims_btn.clicked.connect(self.claims_edit_requested.emit)
         actions_row.addWidget(self.claims_btn)
 
+        for btn, icon_name in (
+            (self.recheck_btn, "search"),
+            (self.home_btn, "computer"),
+            (self.guided_btn, "diagnostics"),
+            (self.claims_btn, "claims"),
+        ):
+            btn.setIcon(icon(icon_name))
+            btn.setIconSize(QSize(18, 18))
+
         # Optional Export Dropdown (demoted to secondary utility)
         self.export_btn = QPushButton("Export File ▼")
         self.export_btn.setObjectName("secondaryButton")
-        self.export_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #1E293B;
-                color: #94A3B8;
-                border: 1px solid #334155;
-                font-size: 11px;
-                padding: 6px 12px;
-                border-radius: 6px;
-            }
-            QPushButton:hover {
-                color: #F8FAFC;
-                border: 1px solid #475569;
-            }
-        """)
+        self.export_btn.setFixedHeight(36)
         self.export_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.export_menu = QMenu(self)
         self.export_menu.addAction("Export PDF Report", self.export_pdf_requested.emit)
@@ -155,12 +139,8 @@ class ResultsPage(QWidget):
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setObjectName("reportScrollArea")
-        scroll.setStyleSheet("""
-            QScrollArea#reportScrollArea {
-                border: none;
-                background-color: transparent;
-            }
-        """)
+        # Content reflows to the window width instead of scrolling sideways
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         root_layout.addWidget(scroll)
 
         self.content_widget = QWidget()
@@ -174,15 +154,7 @@ class ResultsPage(QWidget):
         # 3. Executive Summary Card (Health Gauge + Vitals Strip)
         # -------------------------------------------------------------
         self.summary_card = QFrame()
-        self.summary_card.setObjectName("cardFrame")
-        self.summary_card.setStyleSheet("""
-            QFrame#cardFrame {
-                background-color: #1E293B;
-                border: 1px solid #334155;
-                border-radius: 12px;
-                padding: 18px;
-            }
-        """)
+        self.summary_card.setObjectName("heroCard")
         summary_layout = QVBoxLayout(self.summary_card)
         summary_layout.setContentsMargins(18, 16, 18, 16)
         summary_layout.setSpacing(16)
@@ -198,25 +170,19 @@ class ResultsPage(QWidget):
         verdict_col.setSpacing(6)
 
         self.verdict_title = QLabel("Hardware Verification Summary")
-        self.verdict_title.setStyleSheet("font-size: 20px; font-weight: 800; color: #F8FAFC;")
+        self.verdict_title.setObjectName("heroTitle")
+        self.verdict_title.setWordWrap(True)
         verdict_col.addWidget(self.verdict_title)
 
         self.verdict_subtitle = QLabel("All scanned components evaluated.")
-        self.verdict_subtitle.setStyleSheet("color: #94A3B8; font-size: 13px; line-height: 140%;")
+        self.verdict_subtitle.setObjectName("textSecondary")
         self.verdict_subtitle.setWordWrap(True)
         verdict_col.addWidget(self.verdict_subtitle)
 
         # Device Identity Pill Banner
         self.device_identity_banner = QLabel("System: Scanning...")
-        self.device_identity_banner.setStyleSheet("""
-            background-color: #0F172A;
-            color: #38BDF8;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-        """)
-        verdict_col.addWidget(self.device_identity_banner)
+        self.device_identity_banner.setObjectName("identityPill")
+        verdict_col.addWidget(self.device_identity_banner, 0, Qt.AlignmentFlag.AlignLeft)
         top_summary_row.addLayout(verdict_col, 1)
 
         summary_layout.addLayout(top_summary_row)
@@ -225,10 +191,10 @@ class ResultsPage(QWidget):
         self.vitals_layout = QHBoxLayout()
         self.vitals_layout.setSpacing(12)
 
-        self.vital_authenticity = self._create_vital_badge("🛡️ Authenticity", "Verified Genuine", "#10B981")
-        self.vital_battery = self._create_vital_badge("🔋 Battery Health", "Evaluating...", "#38BDF8")
-        self.vital_storage = self._create_vital_badge("💾 Storage SMART", "Evaluating...", "#38BDF8")
-        self.vital_cpu = self._create_vital_badge("⚡ Processor", "Evaluating...", "#38BDF8")
+        self.vital_authenticity = self._create_vital_badge("authenticity", "Authenticity", "Verified Genuine", "success")
+        self.vital_battery = self._create_vital_badge("battery", "Battery Health", "Evaluating...", "info")
+        self.vital_storage = self._create_vital_badge("storage", "Storage SMART", "Evaluating...", "info")
+        self.vital_cpu = self._create_vital_badge("cpu", "Processor", "Evaluating...", "info")
 
         self.vitals_layout.addWidget(self.vital_authenticity)
         self.vitals_layout.addWidget(self.vital_battery)
@@ -259,47 +225,33 @@ class ResultsPage(QWidget):
         filter_bar.setSpacing(8)
 
         filter_lbl = QLabel("Category:")
-        filter_lbl.setStyleSheet("font-weight: 700; color: #94A3B8; font-size: 13px;")
+        filter_lbl.setObjectName("textSecondary")
         filter_bar.addWidget(filter_lbl)
 
         self.filter_group = QButtonGroup(self)
         self.filter_group.setExclusive(True)
 
         categories = [
-            ("all", "All Components"),
-            ("processor_memory", "⚡ CPU & RAM"),
-            ("storage", "💾 Storage"),
-            ("battery", "🔋 Battery"),
-            ("graphics_display", "🎮 Graphics & Display"),
-            ("system_security", "🔒 Security & Identity"),
-            ("thermals_io", "🌡️ Thermals & I/O"),
+            ("all", "All Components", ""),
+            ("processor_memory", "CPU & RAM", "cpu"),
+            ("storage", "Storage", "storage"),
+            ("battery", "Battery", "battery"),
+            ("graphics_display", "Graphics & Display", "gpu"),
+            ("system_security", "Security & Identity", "security"),
+            ("thermals_io", "Thermals & I/O", "thermals"),
         ]
+        # QPushButton treats a single "&" as a shortcut marker and hides it
+        categories = [(cat_id, (" " if icon_name else "") + title.replace("&", "&&"), icon_name) for cat_id, title, icon_name in categories]
 
-        for idx, (cat_id, cat_title) in enumerate(categories):
+        for idx, (cat_id, cat_title, icon_name) in enumerate(categories):
             btn = QPushButton(cat_title)
             btn.setCheckable(True)
             btn.setChecked(idx == 0)
             btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-            btn.setStyleSheet("""
-                QPushButton {
-                    background-color: #1E293B;
-                    color: #94A3B8;
-                    border: 1px solid #334155;
-                    border-radius: 6px;
-                    padding: 6px 14px;
-                    font-size: 12px;
-                    font-weight: 600;
-                }
-                QPushButton:checked {
-                    background-color: #2563EB;
-                    color: #FFFFFF;
-                    border: 1px solid #3B82F6;
-                }
-                QPushButton:hover:!checked {
-                    background-color: #334155;
-                    color: #F8FAFC;
-                }
-            """)
+            btn.setObjectName("filterChip")
+            if icon_name:
+                btn.setIcon(icon(icon_name))
+                btn.setIconSize(QSize(16, 16))
             btn.clicked.connect(lambda checked=False, cid=cat_id: self._filter_category(cid))
             self.filter_group.addButton(btn, idx)
             filter_bar.addWidget(btn)
@@ -323,33 +275,36 @@ class ResultsPage(QWidget):
         self.interactive_btn = self.guided_btn
         self.new_scan_btn = self.home_btn
 
-    def _create_vital_badge(self, title: str, default_val: str, accent_color: str) -> QFrame:
+    def _create_vital_badge(self, icon_name: str, title: str, default_val: str, tone: str) -> QFrame:
         """Create a compact quick-stat telemetry badge for the header ribbon."""
         box = QFrame()
-        box.setStyleSheet(f"""
-            QFrame {{
-                background-color: #0F172A;
-                border: 1px solid #334155;
-                border-radius: 8px;
-                padding: 10px 14px;
-            }}
-        """)
+        box.setObjectName("vitalBadge")
         layout = QVBoxLayout(box)
-        layout.setContentsMargins(8, 6, 8, 6)
+        layout.setContentsMargins(14, 10, 14, 10)
         layout.setSpacing(3)
 
-        lbl_title = QLabel(title)
-        lbl_title.setStyleSheet("color: #64748B; font-size: 11px; font-weight: 600; text-transform: uppercase;")
+        lbl_title = QLabel(f"{html_img(icon_name, 13)}&nbsp; {title.upper()}")
+        lbl_title.setObjectName("vitalTitle")
         layout.addWidget(lbl_title)
 
         lbl_val = QLabel(default_val)
-        lbl_val.setObjectName("vitalValue")
-        lbl_val.setStyleSheet(f"color: {accent_color}; font-size: 13px; font-weight: 700;")
         lbl_val.setWordWrap(True)
         layout.addWidget(lbl_val)
 
         box.value_label = lbl_val  # type: ignore[attr-defined]
+        self._set_vital(box, default_val, tone)
         return box
+
+    @staticmethod
+    def _set_vital(box: QFrame, text: str, tone: str) -> None:
+        """Set a vital badge's value; tone is success, warning, danger, info or muted."""
+        label: QLabel = box.value_label  # type: ignore[attr-defined]
+        label.setText(text)
+        label.setObjectName("textSecondary" if tone == "muted" else f"{tone}Text")
+        label.setStyleSheet("font-size: 13px; font-weight: 700;")
+        # objectName selectors are only re-evaluated on polish
+        label.style().unpolish(label)
+        label.style().polish(label)
 
     def display_results(
         self,
@@ -409,32 +364,25 @@ class ResultsPage(QWidget):
 
         # Authenticity Vital
         if any(r.module_name == "cpu" and any("spoofed" in e.lower() for e in r.errors) for r in results):
-            self.vital_authenticity.value_label.setText("❌ SPOOFED CPU DETECTED")  # type: ignore[attr-defined]
-            self.vital_authenticity.value_label.setStyleSheet("color: #EF4444; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+            self._set_vital(self.vital_authenticity, "❌ SPOOFED CPU DETECTED", "danger")
         elif sys_res and any("serial" in w.lower() for w in sys_res.warnings):
-            self.vital_authenticity.value_label.setText("⚠️ Generic Serial")  # type: ignore[attr-defined]
-            self.vital_authenticity.value_label.setStyleSheet("color: #F59E0B; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+            self._set_vital(self.vital_authenticity, "⚠️ Generic Serial", "warning")
         else:
-            self.vital_authenticity.value_label.setText("✅ Verified Genuine")  # type: ignore[attr-defined]
-            self.vital_authenticity.value_label.setStyleSheet("color: #10B981; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+            self._set_vital(self.vital_authenticity, "✅ Verified Genuine", "success")
 
         # Battery Vital
         if bat_res:
             if not bat_res.is_applicable:
-                self.vital_battery.value_label.setText("🔌 Desktop (AC Power)")  # type: ignore[attr-defined]
-                self.vital_battery.value_label.setStyleSheet("color: #94A3B8; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+                self._set_vital(self.vital_battery, "🔌 Desktop (AC Power)", "muted")
             else:
                 wear = bat_res.readings.get("wear_percentage")
                 wear_val = f"{wear.value}% Wear" if wear and wear.is_available else "Available"
                 if wear and wear.is_available and float(wear.value) > 40:
-                    self.vital_battery.value_label.setText(f"⚠️ {wear_val} (Replace)")  # type: ignore[attr-defined]
-                    self.vital_battery.value_label.setStyleSheet("color: #EF4444; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+                    self._set_vital(self.vital_battery, f"⚠️ {wear_val} (Replace)", "danger")
                 elif wear and wear.is_available and float(wear.value) > 25:
-                    self.vital_battery.value_label.setText(f"⚠️ {wear_val} (Fair)")  # type: ignore[attr-defined]
-                    self.vital_battery.value_label.setStyleSheet("color: #F59E0B; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+                    self._set_vital(self.vital_battery, f"⚠️ {wear_val} (Fair)", "warning")
                 else:
-                    self.vital_battery.value_label.setText(f"✅ {wear_val} (Good)")  # type: ignore[attr-defined]
-                    self.vital_battery.value_label.setStyleSheet("color: #10B981; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+                    self._set_vital(self.vital_battery, f"✅ {wear_val} (Good)", "success")
 
         # Storage Vital
         if storage_res:
@@ -444,11 +392,13 @@ class ResultsPage(QWidget):
             )
             drive_count = len(storage_res)
             if all_smart_pass:
-                self.vital_storage.value_label.setText(f"✅ 100% SMART OK ({drive_count} drive{'s' if drive_count > 1 else ''})")  # type: ignore[attr-defined]
-                self.vital_storage.value_label.setStyleSheet("color: #10B981; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+                self._set_vital(
+                    self.vital_storage,
+                    f"✅ 100% SMART OK ({drive_count} drive{'s' if drive_count > 1 else ''})",
+                    "success",
+                )
             else:
-                self.vital_storage.value_label.setText("❌ SMART Warning / Failing")  # type: ignore[attr-defined]
-                self.vital_storage.value_label.setStyleSheet("color: #EF4444; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+                self._set_vital(self.vital_storage, "❌ SMART Warning / Failing", "danger")
 
         # CPU Vital
         if cpu_res:
@@ -457,14 +407,14 @@ class ResultsPage(QWidget):
             threads = cpu_res.readings.get("logical_processors")
             model_str = model.value if model and model.is_available else "Processor"
             c_str = f" ({cores.value}C/{threads.value}T)" if cores and threads and cores.is_available and threads.is_available else ""
-            self.vital_cpu.value_label.setText(f"{model_str}{c_str}")  # type: ignore[attr-defined]
-            self.vital_cpu.value_label.setStyleSheet("color: #38BDF8; font-size: 13px; font-weight: 700;")  # type: ignore[attr-defined]
+            self._set_vital(self.vital_cpu, f"{model_str}{c_str}", "info")
 
     def _render_seller_claims(self) -> None:
         """Render the comparison table between claimed and detected hardware."""
         while self.claims_container.count():
             item = self.claims_container.takeAt(0)
             if item.widget():
+                item.widget().hide()  # deleteLater is deferred; hidden so it never paints under the new content
                 item.widget().deleteLater()
 
         if not self._claims or not self._claims.has_claims:
@@ -473,30 +423,19 @@ class ResultsPage(QWidget):
         report = self._claims_matcher.compare(self._claims, self._results)
         card = QFrame()
         card.setObjectName("cardFrame")
-        card.setStyleSheet("""
-            QFrame#cardFrame {
-                background-color: #1E293B;
-                border: 1px solid #334155;
-                border-radius: 10px;
-                padding: 16px;
-            }
-        """)
         layout = QVBoxLayout(card)
+        layout.setContentsMargins(18, 16, 18, 16)
         layout.setSpacing(10)
 
         header = QHBoxLayout()
-        title = QLabel(f"📋 Seller Advertised Claims Match Report ({report.matches_count}/{len(report.items)} Matched)")
-        title.setStyleSheet("font-size: 15px; font-weight: 700; color: #38BDF8;")
+        title = QLabel(f"{html_img('claims', 18)}&nbsp; Seller Advertised Claims Match Report ({report.matches_count}/{len(report.items)} Matched)")
+        title.setObjectName("cardTitle")
         header.addWidget(title)
         header.addStretch()
 
         badge_txt = "✓ ALL ADVERTISED SPECS MATCH" if report.all_matched else f"⚠ {report.mismatches_count} SPEC MISMATCH(ES)"
         badge = QLabel(badge_txt)
-        badge.setStyleSheet(
-            "background-color: #064E3B; color: #34D399; font-weight: 700; padding: 4px 12px; border-radius: 6px; font-size: 11px;"
-            if report.all_matched else
-            "background-color: #7F1D1D; color: #F87171; font-weight: 700; padding: 4px 12px; border-radius: 6px; font-size: 11px;"
-        )
+        badge.setObjectName("badgeSuccess" if report.all_matched else "badgeDanger")
         header.addWidget(badge)
         layout.addLayout(header)
 
@@ -504,24 +443,11 @@ class ResultsPage(QWidget):
         table = QTableWidget(len(report.items), 4)
         table.setHorizontalHeaderLabels(["Component", "Advertised Spec", "Detected Hardware", "Match Verdict"])
         table.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
-        table.setStyleSheet("""
-            QTableWidget {
-                background-color: #0F172A;
-                color: #F8FAFC;
-                border: 1px solid #334155;
-                border-radius: 6px;
-                gridline-color: #1E293B;
-                font-size: 12px;
-            }
-            QHeaderView::section {
-                background-color: #1E293B;
-                color: #94A3B8;
-                font-weight: 600;
-                padding: 6px;
-                border: none;
-            }
-        """)
+        table.verticalHeader().setVisible(False)
+        table.setShowGrid(False)
+        table.setAlternatingRowColors(True)
 
+        colors = ThemeManager.get_colors()
         for row, it in enumerate(report.items):
             table.setItem(row, 0, QTableWidgetItem(it.component))
             table.setItem(row, 1, QTableWidgetItem(it.claimed_value))
@@ -529,10 +455,7 @@ class ResultsPage(QWidget):
             table.setItem(row, 2, actual_item)
 
             v_item = QTableWidgetItem("✓ Match" if it.is_match else "✕ Mismatch")
-            if it.is_match:
-                v_item.setForeground(Qt.GlobalColor.green)
-            else:
-                v_item.setForeground(Qt.GlobalColor.red)
+            v_item.setForeground(QColor(colors["accent_success"] if it.is_match else colors["accent_danger"]))
             table.setItem(row, 3, v_item)
 
         table.setFixedHeight(min(220, 36 + len(report.items) * 32))
@@ -544,23 +467,19 @@ class ResultsPage(QWidget):
         while self.red_flags_container.count():
             item = self.red_flags_container.takeAt(0)
             if item.widget():
+                item.widget().hide()  # deleteLater is deferred; hidden so it never paints under the new content
                 item.widget().deleteLater()
 
         if not summary.red_flags and not summary.recommendations:
             clean_box = QFrame()
-            clean_box.setStyleSheet("""
-                background-color: rgba(16, 185, 129, 0.1);
-                border: 1px solid rgba(16, 185, 129, 0.3);
-                border-radius: 10px;
-                padding: 12px 18px;
-            """)
+            clean_box.setObjectName("successCard")
             clayout = QHBoxLayout(clean_box)
-            clayout.setContentsMargins(12, 10, 12, 10)
+            clayout.setContentsMargins(16, 12, 16, 12)
             cl_icon = QLabel("✅")
             cl_icon.setStyleSheet("font-size: 20px;")
             clayout.addWidget(cl_icon)
             cl_txt = QLabel("<b>Clean Hardware Health:</b> No counterfeit components, failing SMART sectors, or severe wear detected.")
-            cl_txt.setStyleSheet("color: #34D399; font-size: 13px;")
+            cl_txt.setObjectName("successText")
             clayout.addWidget(cl_txt)
             clayout.addStretch()
             self.red_flags_container.addWidget(clean_box)
@@ -568,31 +487,26 @@ class ResultsPage(QWidget):
 
         has_fail = summary.verdict == "LOW"
         rf_box = QFrame()
-        rf_box.setObjectName("dangerCard" if has_fail else "highlightCard")
-        rf_box.setStyleSheet(
-            "background-color: rgba(220, 38, 38, 0.12); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 10px; padding: 14px;"
-            if has_fail else
-            "background-color: rgba(217, 119, 6, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 10px; padding: 14px;"
-        )
+        rf_box.setObjectName("dangerCard" if has_fail else "warningCard")
 
         rf_box_layout = QVBoxLayout(rf_box)
         rf_box_layout.setContentsMargins(16, 14, 16, 14)
         rf_box_layout.setSpacing(8)
 
         rf_title = QLabel("🚩 Potential Issues & Actionable Buyer Notes:")
-        rf_title.setStyleSheet("font-size: 15px; font-weight: 700; color: #EF4444;" if has_fail else "font-size: 15px; font-weight: 700; color: #F59E0B;")
+        rf_title.setObjectName("dangerText" if has_fail else "warningText")
+        rf_title.setStyleSheet("font-size: 15px; font-weight: 700;")
         rf_box_layout.addWidget(rf_title)
 
         for flag in summary.red_flags:
             lbl = QLabel(f"• <b>Issue:</b> {flag}")
             lbl.setWordWrap(True)
-            lbl.setStyleSheet("color: #F8FAFC; font-size: 13px;")
             rf_box_layout.addWidget(lbl)
 
         for rec in summary.recommendations:
             lbl = QLabel(f"• <b>Buyer Tip:</b> {rec}")
             lbl.setWordWrap(True)
-            lbl.setStyleSheet("color: #93C5FD; font-size: 13px;")
+            lbl.setObjectName("infoText")
             rf_box_layout.addWidget(lbl)
 
         self.red_flags_container.addWidget(rf_box)
@@ -603,6 +517,7 @@ class ResultsPage(QWidget):
         while self.cards_grid.count():
             item = self.cards_grid.takeAt(0)
             if item.widget():
+                item.widget().hide()  # deleteLater is deferred; hidden so it never paints under the new content
                 item.widget().deleteLater()
 
         self._module_cards.clear()
@@ -655,6 +570,6 @@ class ResultsPage(QWidget):
             self.cards_grid.addWidget(card, row, col)
 
     def _on_check_again(self) -> None:
-        """Emit both check_pc_again and new_scan for backwards compatibility."""
+        """Start a fresh scan. Emitting new_scan_requested here too would send the
+        window back to the Home page while the new scan runs in the background."""
         self.check_pc_again_requested.emit()
-        self.new_scan_requested.emit()

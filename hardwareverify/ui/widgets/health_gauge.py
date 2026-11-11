@@ -7,6 +7,7 @@ from PySide6.QtGui import QColor, QFont, QPainter, QPen
 from PySide6.QtWidgets import QWidget
 
 from hardwareverify.core.models import Status
+from hardwareverify.ui.theme import ThemeManager
 
 
 class HealthGauge(QWidget):
@@ -50,31 +51,40 @@ class HealthGauge(QWidget):
         start_angle = 225 * 16
         span_angle = -270 * 16
 
-        bg_pen = QPen(QColor("#2d3748"), stroke_width)
+        colors = ThemeManager.get_colors()
+        bg_pen = QPen(QColor(colors["gauge_bg"]), stroke_width)
         bg_pen.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(bg_pen)
         painter.drawArc(rect, start_angle, span_angle)
 
         # Determine accent color based on score
         if self._score >= 80:
-            color = QColor("#10b981")  # Emerald green
+            color = QColor(colors["accent_success"])
         elif self._score >= 50:
-            color = QColor("#f59e0b")  # Amber
+            color = QColor(colors["accent_warning"])
         else:
-            color = QColor("#ef4444")  # Red
+            color = QColor(colors["accent_danger"])
 
         if self._status == Status.NOT_TESTED:
-            color = QColor("#64748b")  # Muted slate
+            color = QColor(colors["text_muted"])
+
+        # Soft halo under the score arc
+        val_span = int((-270 * 16) * (self._score / 100.0))
+        halo = QColor(color)
+        halo.setAlphaF(0.22)
+        halo_pen = QPen(halo, stroke_width + 6)
+        halo_pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+        painter.setPen(halo_pen)
+        painter.drawArc(rect, start_angle, val_span)
 
         # Foreground score arc
-        val_span = int((-270 * 16) * (self._score / 100.0))
         fg_pen = QPen(color, stroke_width)
         fg_pen.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(fg_pen)
         painter.drawArc(rect, start_angle, val_span)
 
         # Draw Center Score text
-        painter.setPen(QColor("#f8fafc"))
+        painter.setPen(QColor(colors["text_primary"]))
         font = QFont("Segoe UI", 16, QFont.Weight.Bold)
         painter.setFont(font)
 

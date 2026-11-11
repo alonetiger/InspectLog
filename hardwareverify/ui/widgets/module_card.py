@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
 )
 
 from hardwareverify.core.models import ModuleResult, Status
+from hardwareverify.ui.icons import GlassIcon
 from hardwareverify.ui.widgets.confidence_badge import ConfidenceBadge
 from hardwareverify.ui.widgets.health_gauge import HealthGauge
 from hardwareverify.ui.widgets.tooltip_label import TooltipLabel, ValueDisplayWidget
@@ -39,9 +40,7 @@ class ModuleCard(QFrame):
         header_layout = QHBoxLayout()
         header_layout.setSpacing(12)
 
-        icon_label = QLabel(self._result.icon)
-        icon_label.setStyleSheet("font-size: 26px;")
-        header_layout.addWidget(icon_label)
+        header_layout.addWidget(GlassIcon(self._result.module_name, icon_size=30))
 
         title_col = QVBoxLayout()
         title_col.setSpacing(2)
@@ -69,20 +68,22 @@ class ModuleCard(QFrame):
         # Warning / Error Box if present
         if self._result.warnings or self._result.errors:
             alert_box = QFrame()
-            alert_box.setObjectName("dangerCard" if self._result.errors else "highlightCard")
+            alert_box.setObjectName("dangerCard" if self._result.errors else "warningCard")
             alert_layout = QVBoxLayout(alert_box)
-            alert_layout.setContentsMargins(10, 8, 10, 8)
+            alert_layout.setContentsMargins(12, 10, 12, 10)
             alert_layout.setSpacing(4)
 
             for err in self._result.errors:
                 lbl = QLabel(f"❌ {err}")
-                lbl.setStyleSheet("color: #ef4444; font-weight: 600;")
+                lbl.setObjectName("dangerText")
+                lbl.setStyleSheet("font-weight: 600;")
                 lbl.setWordWrap(True)
                 alert_layout.addWidget(lbl)
 
             for warn in self._result.warnings:
                 lbl = QLabel(f"⚠️ {warn}")
-                lbl.setStyleSheet("color: #f59e0b; font-weight: 500;")
+                lbl.setObjectName("warningText")
+                lbl.setStyleSheet("font-weight: 500;")
                 lbl.setWordWrap(True)
                 alert_layout.addWidget(lbl)
 

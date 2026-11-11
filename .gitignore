@@ -3,9 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# PyInstaller & Build
-build/
-dist/
+# PyInstaller & Build (anchored so tools/build/ with the .spec and manifest stays tracked)
+/build/
+/dist/
 *.spec.bak
 
 # Testing & Coverage

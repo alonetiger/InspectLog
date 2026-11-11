@@ -50,13 +50,15 @@ class ValueDisplayWidget(QWidget):
         layout.setSpacing(6)
 
         self.val_label = QLabel()
+        self.val_label.setWordWrap(True)
         if verified.is_available:
             self.val_label.setText(str(verified.value))
             self.val_label.setStyleSheet("font-weight: 600;")
         else:
             reason = verified.unavailable_reason or "Hardware/driver did not return value"
             self.val_label.setText("Unavailable")
-            self.val_label.setStyleSheet("font-style: italic; color: #94a3b8;")
+            self.val_label.setObjectName("textSecondary")
+            self.val_label.setStyleSheet("font-style: italic;")
             self.val_label.setToolTip(f"Why unavailable: {reason}")
 
         # Assemble provenance tooltip for data sources

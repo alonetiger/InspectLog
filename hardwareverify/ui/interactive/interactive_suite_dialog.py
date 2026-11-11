@@ -39,36 +39,39 @@ class InteractiveSuiteDialog(QDialog):
         self.setWindowTitle("InspectLog — Guided Interactive Diagnostics")
         self.resize(920, 680)
         self.setMinimumSize(800, 580)
+        # The test widgets inside use dark panels, so this dialog keeps the dark glass
+        # palette in both themes.
         self.setStyleSheet("""
             QDialog {
-                background-color: #0F172A;
-                color: #F8FAFC;
-                font-family: 'Segoe UI', system-ui, sans-serif;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #0d1330, stop:1 #1a1240);
+                color: #F5F7FF;
+            }
+            QWidget {
+                color: #F5F7FF;
             }
             QTabWidget::pane {
-                border: 1px solid #334155;
-                background-color: #1E293B;
-                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(255, 255, 255, 0.10), stop:1 rgba(255, 255, 255, 0.04));
+                border-radius: 14px;
             }
             QTabBar::tab {
-                background-color: #0F172A;
-                color: #94A3B8;
-                padding: 10px 18px;
+                background: transparent;
+                color: #AAB4D4;
+                padding: 9px 16px;
                 font-size: 13px;
                 font-weight: 600;
-                border-top-left-radius: 6px;
-                border-top-right-radius: 6px;
+                border-radius: 10px;
                 margin-right: 4px;
             }
             QTabBar::tab:selected {
-                background-color: #1E293B;
-                color: #38BDF8;
-                border: 1px solid #334155;
-                border-bottom: none;
+                background: rgba(255, 255, 255, 0.14);
+                color: #F5F7FF;
+                border: 1px solid rgba(255, 255, 255, 0.18);
             }
             QTabBar::tab:hover:!selected {
-                background-color: #1E293B;
-                color: #E2E8F0;
+                background: rgba(255, 255, 255, 0.07);
+                color: #F5F7FF;
             }
         """)
 
@@ -91,15 +94,17 @@ class InteractiveSuiteDialog(QDialog):
         self.btn_done = QPushButton("✓ Save & Return to Results")
         self.btn_done.setStyleSheet("""
             QPushButton {
-                background-color: #0284C7;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #8b5cf6, stop:1 #06b6d4);
                 color: white;
                 font-weight: 700;
                 font-size: 13px;
                 padding: 8px 20px;
-                border-radius: 6px;
-                border: none;
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
             }
-            QPushButton:hover { background-color: #0369A1; }
+            QPushButton:hover {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #7c3aed, stop:1 #0891b2);
+            }
         """)
         self.btn_done.clicked.connect(self._finish_suite)
         top_bar.addWidget(self.btn_done)
@@ -163,9 +168,9 @@ class InteractiveSuiteDialog(QDialog):
         card = QFrame()
         card.setStyleSheet("""
             QFrame {
-                background-color: #0F172A;
-                border: 1px solid #334155;
-                border-radius: 10px;
+                background-color: rgba(3, 6, 20, 0.45);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 14px;
                 padding: 24px;
             }
         """)
